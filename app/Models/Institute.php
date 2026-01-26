@@ -7,7 +7,15 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Authenticatable
+class Institute extends Authenticatable
 {
     use SoftDeletes;
+
+    protected $table = 'institutes';
+
+    protected $fillable = [
+        'name',
+        'logo',
+        'status',
+    ];
 }

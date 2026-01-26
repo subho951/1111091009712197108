@@ -31,32 +31,82 @@ if(!empty($parameters)){
       <i class="fa fa-home"></i>
       <span>Dashboard</span>
     </a>
-  </li><!-- End Dashboard Nav -->  
+  </li><!-- End Dashboard Nav -->
 
-  <?php if(in_array(32, $module_id)){?>
-    <li class="nav-item">
-      <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="{{ url('admin/email-logs') }}">
-        <i class="fa fa-envelope"></i>
-        <span>Email Logs</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
-  <?php }?>
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'institute')?'active':'')?>" href="{{ url('admin/institute/list') }}">
+      <i class="fa fa-university"></i>
+      <span>Institutes</span>
+    </a>
+  </li><!-- End Institutes Nav -->
 
-  <?php if(in_array(33, $module_id)){?>
-    <li class="nav-item">
-      <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="{{ url('admin/login-logs') }}">
-        <i class="fa fa-list"></i>
-        <span>Login Logs</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
-  <?php }?>
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'society-member')?'active':'')?>" href="{{ url('admin/society-member/list') }}">
+      <i class="fa fa-users"></i>
+      <span>Society Members</span>
+    </a>
+  </li><!-- End Society Members Nav -->
 
-  <?php if(in_array(35, $module_id)){?>
-    <li class="nav-item">
-      <a class="nav-link <?=(($pageSegment == 'settings')?'active':'')?>" href="{{ url('admin/settings') }}">
-        <i class="fa fa-cogs"></i>
-        <span>Account Settings</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
-  <?php }?>
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'employee-member')?'active':'')?>" href="{{ url('admin/employee-member/list') }}">
+      <i class="fa fa-users"></i>
+      <span>Admin & Employee Members</span>
+    </a>
+  </li><!-- End Society Members Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'teacher-member')?'active':'')?>" href="{{ url('admin/teacher-member/list') }}">
+      <i class="fa fa-users"></i>
+      <span>Teacher Members</span>
+    </a>
+  </li><!-- End Teacher Members Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'news')?'active':'')?>" href="{{ url('admin/news/list') }}">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>News</span>
+    </a>
+  </li><!-- End News Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'magazine')?'active':'')?>" href="{{ url('admin/magazine/list') }}">
+      <i class="fa fa-newspaper"></i>
+      <span>Magazines</span>
+    </a>
+  </li><!-- End Magazines Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'achievement')?'active':'')?>" href="{{ url('admin/achievement/list') }}">
+      <i class="fa fa-award"></i>
+      <span>Achievements</span>
+    </a>
+  </li><!-- End Achievements Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'page')?'active':'')?>" href="{{ url('admin/page/list') }}">
+      <i class="fa fa-file-text"></i>
+      <span>Pages</span>
+    </a>
+  </li><!-- End Teacher Members Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="{{ url('admin/email-logs') }}">
+      <i class="fa fa-envelope"></i>
+      <span>Email Logs</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="{{ url('admin/login-logs') }}">
+      <i class="fa fa-list"></i>
+      <span>Login Logs</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'settings')?'active':'')?>" href="{{ url('admin/settings') }}">
+      <i class="fa fa-cogs"></i>
+      <span>Account Settings</span>
+    </a>
+  </li><!-- End Profile Page Nav -->
 </ul>

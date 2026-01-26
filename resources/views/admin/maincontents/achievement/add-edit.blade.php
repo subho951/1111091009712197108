@@ -30,64 +30,61 @@ $controllerRoute = $module['controller_route'];
     </div>
     <?php
     if($row){
-      $section        = $row->section;
-      $banner_text    = $row->banner_text;
-      $banner_text2   = $row->banner_text2;
-      $banner_link    = $row->banner_link;
-      $banner_image   = $row->banner_image;
+      $name               = $row->name;
+      $news_date          = $row->news_date;
+      $photo              = $row->photo;
     } else {
-      $section        = '';
-      $banner_text    = '';
-      $banner_text2   = '';
-      $banner_link    = '';
-      $banner_image   = '';
+      $name               = '';
+      $news_date          = '';
+      $photo              = '';
     }
     ?>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Please fix the following errors:</strong>
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="col-xl-12">
       <div class="card">
         <div class="card-body pt-3">
+          <h6 class="text-danger">Star (*) marks fields are mandatory</h6>
           <form method="POST" action="" enctype="multipart/form-data">
             @csrf
             <div class="row mb-3">
-              <label for="section" class="col-md-2 col-lg-2 col-form-label">Section</label>
+              <label for="name" class="col-md-2 col-lg-2 col-form-label">Name <span class="text-danger">*</span></label>
               <div class="col-md-10 col-lg-10">
-                <select name="section" class="form-control" id="section" required>
-                  <option value="" selected>Select Section</option>
-                  <option value="1" <?=(($section == 1)?'selected':'')?>>Section 1</option>
-                  <option value="2" <?=(($section == 2)?'selected':'')?>>Section 2</option>
-                </select>
+                <input type="text" name="name" class="form-control" id="name" value="<?=$name?>" required>
+                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
               </div>
             </div>
+
             <div class="row mb-3">
-              <label for="banner_text" class="col-md-2 col-lg-2 col-form-label">Banner Title Text</label>
+              <label for="news_date" class="col-md-2 col-lg-2 col-form-label">Date <span class="text-danger">*</span></label>
               <div class="col-md-10 col-lg-10">
-                <input type="text" name="banner_text" class="form-control" id="banner_text" value="<?=$banner_text?>">
+                <input type="date" name="news_date" class="form-control" id="news_date" value="<?=$news_date?>" max="<?= date('Y-m-d') ?>" required>
+                @error('news_date') <span class="text-danger">{{ $message }}</span> @enderror
               </div>
             </div>
+
             <div class="row mb-3">
-              <label for="banner_text2" class="col-md-2 col-lg-2 col-form-label">Banner Short Description Text</label>
+              <label for="photo" class="col-md-2 col-lg-2 col-form-label">Photo <span class="text-danger">*</span></label>
               <div class="col-md-10 col-lg-10">
-                <input type="text" name="banner_text2" class="form-control" id="banner_text2" value="<?=$banner_text2?>">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="banner_link" class="col-md-2 col-lg-2 col-form-label">Banner Link</label>
-              <div class="col-md-10 col-lg-10">
-                <input type="text" name="banner_link" class="form-control" id="banner_link" value="<?=$banner_link?>">
-              </div>
-            </div>
-            <div class="row mb-3">
-              <label for="banner_image" class="col-md-2 col-lg-2 col-form-label">Banner Image</label>
-              <div class="col-md-10 col-lg-10">
-                <input type="file" name="banner_image" class="form-control" id="banner_image" <?=((!empty($row))?'':'required')?>>
+                <input type="file" name="photo" class="form-control" id="photo" <?=((!empty($row))?'':'required')?>>
                 <small class="text-info">* Only JPG, JPEG, ICO, SVG, PNG files are allowed</small><br>
-                <?php if($banner_image != ''){?>
-                  <img src="<?=env('UPLOADS_URL').'banner/'.$banner_image?>" class="img-thumbnail" alt="<?=$banner_text?>" style="width: 250px; height: 120px; margin-top: 10px;">
+                <?php if($photo != ''){?>
+                  <img src="<?=env('UPLOADS_URL').'achievement/'.$photo?>" class="img-thumbnail" alt="<?=$name?>" style="width: 150px; height: 150px; margin-top: 10px;">
                 <?php } else {?>
-                  <img src="<?=env('NO_IMAGE')?>" alt="<?=$banner_text?>" class="img-thumbnail" style="width: 150px; height: 150px; margin-top: 10px;">
-                <?php }?>                
+                  <img src="<?=env('NO_IMAGE')?>" alt="<?=$name?>" class="img-thumbnail" style="width: 150px; height: 150px; margin-top: 10px;">
+                <?php }?>
+                @error('photo') <span class="text-danger">{{ $message }}</span> @enderror
               </div>
             </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-primary"><?=(($row)?'Save':'Add')?></button>
             </div>

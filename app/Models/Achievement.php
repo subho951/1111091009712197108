@@ -7,7 +7,16 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Authenticatable
+class Achievement extends Authenticatable
 {
     use SoftDeletes;
+
+    protected $table = 'achievements';
+
+    protected $fillable = [
+        'name',
+        'news_date',
+        'photo',
+        'status',
+    ];
 }
