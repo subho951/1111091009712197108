@@ -41,6 +41,13 @@ if(!empty($parameters)){
   </li><!-- End Institutes Nav -->
 
   <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'category')?'active':'')?>" href="{{ url('admin/category/list') }}">
+      <i class="fa fa-list-alt"></i>
+      <span>Categories</span>
+    </a>
+  </li><!-- End Institutes Nav -->
+
+  <li class="nav-item">
     <a class="nav-link <?=(($pageSegment == 'society-member')?'active':'')?>" href="{{ url('admin/society-member/list') }}">
       <i class="fa fa-users"></i>
       <span>Society Members</span>
@@ -58,6 +65,13 @@ if(!empty($parameters)){
     <a class="nav-link <?=(($pageSegment == 'teacher-member')?'active':'')?>" href="{{ url('admin/teacher-member/list') }}">
       <i class="fa fa-users"></i>
       <span>Teacher Members</span>
+    </a>
+  </li><!-- End Teacher Members Nav -->
+
+  <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'event')?'active':'')?>" href="{{ url('admin/event/list') }}">
+      <i class="fa fa-calendar"></i>
+      <span>Events</span>
     </a>
   </li><!-- End Teacher Members Nav -->
 

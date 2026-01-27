@@ -58,6 +58,13 @@ Route::get('/', function () {
                 Route::get('institute/delete/{id}', 'InstituteController@delete');
                 Route::get('institute/change-status/{id}', 'InstituteController@change_status');
             /* institute */
+            /* category */
+                Route::get('category/list', 'CategoryController@list');
+                Route::match(['get', 'post'], 'category/add', 'CategoryController@add');
+                Route::match(['get', 'post'], 'category/edit/{id}', 'CategoryController@edit');
+                Route::get('category/delete/{id}', 'CategoryController@delete');
+                Route::get('category/change-status/{id}', 'CategoryController@change_status');
+            /* category */
             /* society member */
                 Route::get('society-member/list', 'SocietyMemberController@list');
                 Route::match(['get', 'post'], 'society-member/add', 'SocietyMemberController@add');
@@ -108,6 +115,13 @@ Route::get('/', function () {
                 Route::get('achievement/delete/{id}', 'AchievementController@delete');
                 Route::get('achievement/change-status/{id}', 'AchievementController@change_status');
             /* achievement */
+            /* event */
+                Route::get('event/list', 'EventController@list');
+                Route::match(['get', 'post'], 'event/add', 'EventController@add');
+                Route::match(['get', 'post'], 'event/edit/{id}', 'EventController@edit');
+                Route::get('event/delete/{id}', 'EventController@delete');
+                Route::get('event/change-status/{id}', 'EventController@change_status');
+            /* event */
         });
     });
 /* Admin Panel */

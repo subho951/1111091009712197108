@@ -7,15 +7,19 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Authenticatable
+class Event extends Authenticatable
 {
     use SoftDeletes;
 
-    protected $table = 'categories';
+    protected $table = 'events';
 
     protected $fillable = [
-        'institute_id',
-        'name',
+        'title',
+        'description',
+        'venue',
+        'event_date',
+        'photo',
+        'video',
         'status',
     ];
 }
