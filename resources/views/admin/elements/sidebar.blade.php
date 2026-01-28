@@ -97,6 +97,13 @@ if(!empty($parameters)){
   </li><!-- End Achievements Nav -->
 
   <li class="nav-item">
+    <a class="nav-link <?=(($pageSegment == 'media')?'active':'')?>" href="{{ url('admin/media/institute-list') }}">
+      <i class="fa-solid fa-image"></i>
+      <span>Media</span>
+    </a>
+  </li><!-- End Achievements Nav -->
+
+  <li class="nav-item">
     <a class="nav-link <?=(($pageSegment == 'page')?'active':'')?>" href="{{ url('admin/page/list') }}">
       <i class="fa fa-file-text"></i>
       <span>Pages</span>

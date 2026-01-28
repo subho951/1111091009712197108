@@ -122,6 +122,16 @@ Route::get('/', function () {
                 Route::get('event/delete/{id}', 'EventController@delete');
                 Route::get('event/change-status/{id}', 'EventController@change_status');
             /* event */
+            /* media */
+                Route::get('media/institute-list', 'MediaController@list');
+                Route::get('media/category-list/{id}', 'MediaController@categoryList');
+                Route::get('media/media-list/{id}/{id2}', 'MediaController@mediaList');
+
+                Route::match(['get', 'post'], 'media/add', 'MediaController@add');
+                Route::match(['get', 'post'], 'media/edit/{id}', 'MediaController@edit');
+                Route::get('media/delete/{id}', 'MediaController@delete');
+                Route::get('media/change-status/{id}', 'MediaController@change_status');
+            /* media */
         });
     });
 /* Admin Panel */
