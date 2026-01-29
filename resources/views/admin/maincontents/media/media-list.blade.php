@@ -9,6 +9,8 @@ $controllerRoute = $module['controller_route'];
     <nav>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?= url('admin/dashboard') ?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= url('admin/media/institute-list') ?>">Institute List</a></li>
+            <li class="breadcrumb-item"><a href="<?= url('admin/media/category-list/' . Helper::encoded($institute_id)) ?>">Category List</a></li>
             <li class="breadcrumb-item active"><?= $page_header ?></li>
         </ol>
     </nav>
@@ -38,36 +40,19 @@ $controllerRoute = $module['controller_route'];
                     <div class="row">
                         <div class="col-md-12">
                             <form method="POST" enctype="multipart/form-data" style="border:1px solid #01010129; padding:10px; border-radius:10px; margin-bottom:10px;">
+                                @csrf
                                 <input type="file" name="photo[]" class="form-control mb-3" id="photo" multiple required>
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
                         </div>
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
-                                <div class="col-md-2">
-                                    <img src="http://localhost/1111091009712197108/public/uploads/institute/1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg" class="img-thumbnail" style="width:100%; margin-bottom:10px;">
-                                </div>
+                                <?php if($medias){ foreach($medias as $media){?>
+                                    <div class="col-md-2">
+                                        <img src="<?= url('public/') . '/' . $media->media_file ?>" class="img-thumbnail" style="width:100%; height:200px; margin-bottom:10px;">
+                                        <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($media->id))?>" class="btn btn-outline-danger btn-sm btn-block mb-3" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i> Delete</a>
+                                    </div>
+                                <?php } }?>
                             </div>
                         </div>
                     </div>

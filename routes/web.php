@@ -126,6 +126,8 @@ Route::get('/', function () {
                 Route::get('media/institute-list', 'MediaController@list');
                 Route::get('media/category-list/{id}', 'MediaController@categoryList');
                 Route::get('media/media-list/{id}/{id2}', 'MediaController@mediaList');
+                Route::post('media/media-list/{id}/{id2}', 'MediaController@mediaList');
+                Route::get('media/delete/{id}', 'MediaController@delete');
 
                 Route::match(['get', 'post'], 'media/add', 'MediaController@add');
                 Route::match(['get', 'post'], 'media/edit/{id}', 'MediaController@edit');

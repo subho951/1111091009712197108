@@ -45,7 +45,7 @@ class MediaController extends Controller
             $data['cats']                   = Category::where('status', '!=', 3)->where('institute_id', '=', $institute_id)->orderBy('id', 'DESC')->get();
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
-        public function mediaList($institute_id, $category_id){
+        public function mediaList(Request $request, $institute_id, $category_id){
             $institute_id                   = Helper::decoded($institute_id);
             $category_id                    = Helper::decoded($category_id);
 
@@ -56,127 +56,61 @@ class MediaController extends Controller
             $title                          = $this->data['title'].' List';
             $page_name                      = 'media.media-list';
             $data['cats']                   = Category::where('status', '!=', 3)->where('institute_id', '=', $institute_id)->orderBy('id', 'DESC')->get();
+                        
+            $data['medias']                 = Media::where('status', '=', 1)->where('institute_id', '=', $institute_id)->where('category_id', '=', $category_id)->orderBy('id', 'DESC')->get();
+            // Helper::pr($data['medias']);
+
+            if($request->isMethod('post')){
+                $request->validate([
+                    'photo'   => 'required',
+                    'photo.*' => 'image|mimes:jpg,jpeg,png,webp|max:200', // 200 KB
+                ]);
+
+                $uploadedFiles = [];
+
+                if ($request->hasFile('photo')) {
+                    foreach ($request->file('photo') as $image) {
+
+                        $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+
+                        $image->move(public_path('uploads/media'), $filename);
+
+                        $uploadedFiles[] = 'uploads/media/' . $filename;
+                    }
+                }
+
+                // Helper::pr($uploadedFiles);
+
+                // return back()->with('success', 'Images uploaded successfully!')
+                //             ->with('files', $uploadedFiles);
+
+                if(!empty($uploadedFiles)){
+                    for($k=0;$k<count($uploadedFiles);$k++){
+                        $fields = [
+                            'institute_id' => $institute_id,
+                            'category_id' => $category_id,
+                            'media_file' => $uploadedFiles[$k],
+                        ];
+                        Media::insert($fields);
+                    }
+                }
+
+                return redirect('admin/media/media-list/'.Helper::encoded($institute_id).'/' . Helper::encoded($category_id))->with('success_message', $this->data['title'].' uploaded successfully !!!');
+            }
+
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
     /* list */
-    /* add */
-        public function add(Request $request){
-            $data['module']           = $this->data;
-            $generalSetting             = GeneralSetting::find('1');
-
-            if($request->isMethod('post')){
-                $request->validate([
-                    'name'          => 'required|string|max:255|unique:users,name',
-                    'news_date'     => 'required|date',
-                    'photo'         => 'required|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
-                    'description'   => 'required|string|max:500',
-                    'mag_file'      => 'required|file|mimes:pdf|max:' . $generalSetting->document_size,
-                ]);
-
-                /** Photo Upload */
-                $photoName = time().'_'.$request->photo->getClientOriginalName();
-                $request->photo->move(public_path('uploads/magazine'), $photoName);
-
-                /** file Upload */
-                $magfileName = time().'_'.$request->mag_file->getClientOriginalName();
-                $request->mag_file->move(public_path('uploads/magazine'), $magfileName);
-
-                Media::create([
-                    'name'              => $request->name,
-                    'news_date'         => $request->news_date,
-                    'photo'             => $photoName,
-                    'mag_file'          => $magfileName,
-                    'description'       => $request->description,
-                ]);
-
-                return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' added successfully !!!');
-            }
-            $data['module']                 = $this->data;
-            $title                          = $this->data['title'].' Add';
-            $page_name                      = 'media.add-edit';
-            $data['row']                    = [];
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-    /* add */
-    /* edit */
-        public function edit(Request $request, $id){
-            $data['module']                 = $this->data;
-            $id                             = Helper::decoded($id);
-            $title                          = $this->data['title'].' Update';
-            $page_name                      = 'media.add-edit';
-            $data['row']                    = Media::where($this->data['primary_key'], '=', $id)->first();
-            $generalSetting                 = GeneralSetting::find('1');
-
-            if($request->isMethod('post')){
-                $member = Media::findOrFail($id);
-
-                $request->validate([
-                    'name'          => 'required|string|max:255|unique:users,name',
-                    'news_date'     => 'required|date',
-                    'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
-                    'description'   => 'required|string|max:500',
-                    'mag_file'      => 'nullable|file|mimes:pdf|max:' . $generalSetting->document_size,
-                ]);
-
-                /** Photo Update */
-                if ($request->hasFile('photo')) {
-                    $oldPath = public_path('uploads/magazine/'.$member->photo);
-                    if (File::exists($oldPath)) {
-                        File::delete($oldPath);
-                    }
-
-                    $photoName = time().'_'.$request->photo->getClientOriginalName();
-                    $request->photo->move(public_path('uploads/magazine'), $photoName);
-                    $member->photo = $photoName;
-                }
-
-                /** file Update */
-                if ($request->hasFile('mag_file')) {
-                    $oldPath2 = public_path('uploads/magazine/'.$member->mag_file);
-                    if (File::exists($oldPath2)) {
-                        File::delete($oldPath2);
-                    }
-
-                    $magfileName = time().'_'.$request->mag_file->getClientOriginalName();
-                    $request->mag_file->move(public_path('uploads/magazine'), $magfileName);
-                    $member->mag_file = $magfileName;
-                }
-
-                $member->update([
-                    'name'              => $request->name,
-                    'news_date'         => $request->news_date,
-                    'description'       => $request->description,
-                ]);
-
-                return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');
-            }
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-    /* edit */
     /* delete */
         public function delete(Request $request, $id){
-            $id                             = Helper::decoded($id);
+            $id                       = Helper::decoded($id);
+            $getMedia                 = Media::where('id', '=', $id)->first();
+
             $fields = [
                 'status'             => 3
             ];
             Media::where($this->data['primary_key'], '=', $id)->update($fields);
-            return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' deleted successfully !!!');
+            return redirect('admin/media/media-list/'.Helper::encoded($getMedia->institute_id).'/' . Helper::encoded($getMedia->category_id))->with('success_message', $this->data['title'].' deleted successfully !!!');
         }
     /* delete */
-    /* change status */
-        public function change_status(Request $request, $id){
-            $id                             = Helper::decoded($id);
-            $model                          = Media::find($id);
-            if ($model->status == 1)
-            {
-                $model->status  = 0;
-                $msg            = 'deactivated';
-            } else {
-                $model->status  = 1;
-                $msg            = 'activated';
-            }            
-            $model->save();
-            return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' '.$msg.' successfully !!!');
-        }
-    /* change status */
 }

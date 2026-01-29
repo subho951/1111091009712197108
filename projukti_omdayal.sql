@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2026 at 03:00 PM
+-- Generation Time: Jan 29, 2026 at 02:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -115,8 +115,10 @@ CREATE TABLE `categories` (
 INSERT INTO `categories` (`id`, `institute_id`, `name`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Category 1', 1, NULL, '2026-01-27 08:29:04', '2026-01-27 08:29:04'),
 (2, 1, 'Category 2', 1, NULL, '2026-01-27 08:29:11', '2026-01-27 08:29:11'),
-(3, 2, 'Category 3', 1, NULL, '2026-01-27 08:29:18', '2026-01-27 08:29:18'),
-(4, 2, 'Category 4', 1, NULL, '2026-01-27 08:29:37', '2026-01-27 08:29:37');
+(3, 1, 'Category 3', 1, NULL, '2026-01-27 08:29:18', '2026-01-28 13:33:17'),
+(4, 2, 'Category 4', 1, NULL, '2026-01-27 08:29:37', '2026-01-27 08:29:37'),
+(5, 2, 'Category 5', 1, NULL, '2026-01-27 08:29:37', '2026-01-27 08:29:37'),
+(6, 2, 'Category 6', 1, NULL, '2026-01-27 08:29:37', '2026-01-27 08:29:37');
 
 -- --------------------------------------------------------
 
@@ -270,6 +272,42 @@ INSERT INTO `magazines` (`id`, `name`, `news_date`, `photo`, `description`, `mag
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `medias`
+--
+
+CREATE TABLE `medias` (
+  `id` int(11) NOT NULL,
+  `institute_id` int(11) NOT NULL DEFAULT 0,
+  `category_id` int(11) NOT NULL DEFAULT 0,
+  `media_file` text DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `medias`
+--
+
+INSERT INTO `medias` (`id`, `institute_id`, `category_id`, `media_file`, `deleted_at`, `status`, `created_at`, `updated_at`) VALUES
+(13, 2, 5, 'uploads/media/1769690286_697b54ae16d47.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:45'),
+(14, 2, 5, 'uploads/media/1769690286_697b54ae16f1b.png', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:48'),
+(15, 2, 5, 'uploads/media/1769690286_697b54ae17010.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:50'),
+(16, 2, 5, 'uploads/media/1769690286_697b54ae170eb.png', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:52'),
+(17, 2, 5, 'uploads/media/1769690286_697b54ae17221.jpg', '2026-01-29 13:43:10', 3, '2026-01-29 12:38:06', '2026-01-29 08:13:10'),
+(18, 2, 5, 'uploads/media/1769690286_697b54ae1735d.png', '2026-01-29 13:41:46', 3, '2026-01-29 12:38:06', '2026-01-29 08:11:46'),
+(19, 2, 5, 'uploads/media/1769690286_697b54ae1746a.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:59'),
+(20, 2, 5, 'uploads/media/1769694202_697b63fa0bfd0.png', NULL, 1, '2026-01-29 13:43:22', NULL),
+(21, 2, 5, 'uploads/media/1769694202_697b63fa0c1ee.jpg', NULL, 1, '2026-01-29 13:43:22', NULL),
+(22, 2, 5, 'uploads/media/1769694202_697b63fa0c2d2.jpg', NULL, 1, '2026-01-29 13:43:22', NULL),
+(23, 1, 3, 'uploads/media/1769694270_697b643ec1b01.png', NULL, 1, '2026-01-29 13:44:30', NULL),
+(24, 1, 3, 'uploads/media/1769694270_697b643ec1cf5.jpg', NULL, 1, '2026-01-29 13:44:30', NULL),
+(25, 1, 3, 'uploads/media/1769694270_697b643ec1dce.png', NULL, 1, '2026-01-29 13:44:30', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `news`
 --
 
@@ -414,7 +452,11 @@ INSERT INTO `user_activities` (`activity_id`, `user_email`, `user_name`, `user_t
 (11, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-26 13:40:34', '2026-01-26 13:40:34'),
 (12, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-26 14:41:32', '2026-01-26 14:41:32'),
 (13, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-27 13:44:31', '2026-01-27 13:44:31'),
-(14, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-27 14:00:12', '2026-01-27 14:00:12');
+(14, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-27 14:00:12', '2026-01-27 14:00:12'),
+(15, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-28 13:07:18', '2026-01-28 13:07:18'),
+(16, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-28 13:46:46', '2026-01-28 13:46:46'),
+(17, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-29 12:23:24', '2026-01-29 12:23:24'),
+(18, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-29 12:23:24', '2026-01-29 12:23:24');
 
 --
 -- Indexes for dumped tables
@@ -476,6 +518,12 @@ ALTER TABLE `magazines`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `medias`
+--
+ALTER TABLE `medias`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `news`
 --
 ALTER TABLE `news`
@@ -532,7 +580,7 @@ ALTER TABLE `banners`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `email_logs`
@@ -565,6 +613,12 @@ ALTER TABLE `magazines`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `medias`
+--
+ALTER TABLE `medias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
@@ -592,7 +646,7 @@ ALTER TABLE `user_accesses`
 -- AUTO_INCREMENT for table `user_activities`
 --
 ALTER TABLE `user_activities`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
