@@ -30,11 +30,13 @@ $controllerRoute = $module['controller_route'];
     </div>
     <?php
     if($row){
-      $name               = $row->name;
-      $logo              = $row->logo;
+      $name                           = $row->name;
+      $background_color               = $row->background_color;
+      $logo                           = $row->logo;
     } else {
-      $name               = '';
-      $logo              = '';
+      $name                           = '';
+      $background_color               = '';
+      $logo                           = '';
     }
     ?>
     @if ($errors->any())
@@ -57,6 +59,13 @@ $controllerRoute = $module['controller_route'];
               <label for="name" class="col-md-2 col-lg-2 col-form-label">Name <span class="text-danger">*</span></label>
               <div class="col-md-10 col-lg-10">
                 <input type="text" name="name" class="form-control" id="name" value="<?=$name?>" required>
+                @error('name') <span class="text-danger">{{ $message }}</span> @enderror
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="background_color" class="col-md-2 col-lg-2 col-form-label">Background Color <span class="text-danger">*</span></label>
+              <div class="col-md-10 col-lg-10">
+                <input type="color" name="background_color" class="form-control" id="background_color" value="<?=$background_color?>" required>
                 @error('name') <span class="text-danger">{{ $message }}</span> @enderror
               </div>
             </div>

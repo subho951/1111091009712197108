@@ -16,6 +16,7 @@ class Media extends Authenticatable
     protected $fillable = [
         'institute_id',
         'category_id',
+        'title',
         'media_file',
         'status',
     ];

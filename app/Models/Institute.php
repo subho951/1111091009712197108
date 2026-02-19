@@ -15,6 +15,7 @@ class Institute extends Authenticatable
 
     protected $fillable = [
         'name',
+        'background_color',
         'logo',
         'status',
     ];

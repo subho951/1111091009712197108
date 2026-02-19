@@ -26,6 +26,13 @@ use App\Models\OrderDetail;
 use Auth;
 use Mail;
 use App\Mail\ForgotPwdMail;
+use App\Models\Achievement;
+use App\Models\Category;
+use App\Models\Event;
+use App\Models\Institute;
+use App\Models\Magazine;
+use App\Models\Media;
+use App\Models\News;
 use Session;
 use Helper;
 use Hash;
@@ -203,200 +210,19 @@ class UserController extends Controller
         }
     /* authentication */
     /* dashboard */
-        public function dashboardOld(Request $request){
-            $data['filter_keyword']                                     = '';
-            $data['filter_keyword_text']                                = 'All Time';
-            $title                                                      = 'Dashboard';
-            $page_name                                                  = 'dashboard';
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
         public function dashboard(Request $request){
-            $data['filter_keyword']                                     = '';
-            $data['filter_keyword_text']                                = 'All Time';
+            $data['institute_count']                                    = Institute::where('status', '!=', 3)->count();
+            $data['category_count']                                     = Category::where('status', '!=', 3)->count();
+            $data['event_count']                                        = Event::where('status', '!=', 3)->count();
+            $data['society_member_count']                               = User::where('status', '!=', 3)->where('type', '=', 1)->count();
+            $data['admin_member_count']                                 = User::where('status', '!=', 3)->where('type', '=', 2)->count();
+            $data['teacher_member_count']                               = User::where('status', '!=', 3)->where('type', '=', 3)->count();
+            $data['news_count']                                         = News::where('status', '!=', 3)->count();
+            $data['magazine_count']                                     = Magazine::where('status', '!=', 3)->count();
+            $data['achievement_count']                                  = Achievement::where('status', '!=', 3)->count();
+            $data['media_count']                                        = Media::where('status', '!=', 3)->count();
 
             $title                                                      = 'Dashboard New';
-            $page_name                                                  = 'dashboard';
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-        public function stats(Request $request){
-            $data['total_view']                                         = UserView::count();
-            $data['total_visit']                                        = UserVisit::count();
-            $data['total_active_products']                              = Product::where('status', '=', 1)->count();
-            $data['total_deactive_products']                            = Product::where('status', '=', 0)->count();
-            $data['total_draft_products']                               = Product::where('status', '=', 2)->count();
-
-            $data['total_sales']                                        = Order::sum('net_amt');
-            $data['total_orders']                                       = Order::count();
-            $data['total_new_orders']                                   = Order::where('status', '=', 1)->count();
-            $data['total_processing_orders']                            = Order::where('status', '=', 2)->count();
-            $data['total_incomplete_orders']                            = Order::where('status', '=', 3)->count();
-            $data['total_shipped_orders']                               = Order::where('status', '=', 4)->count();
-            $data['total_complete_orders']                              = Order::where('status', '=', 5)->count();
-            $data['total_rejected_orders']                              = Order::where('status', '=', 6)->count();
-            $data['total_cancelled_orders']                             = Order::where('status', '=', 7)->count();
-
-            $data['total_wishlist']                                     = UserWishlist::count();
-            $data['total_review']                                       = UserReview::count();
-            $data['total_cart']                                         = OrderDetail::where('is_cart', '=', 1)->count();
-
-            $data['recent_activities']                                  = DB::table('user_website_activities')
-                                                                                ->join('users', 'user_website_activities.user_id', '=', 'users.id')
-                                                                                ->select('user_website_activities.*', 'users.profile_image')
-                                                                                ->orderBy('user_website_activities.id', 'DESC')
-                                                                                ->limit(10)
-                                                                                ->get();
-
-            $data['products']                                           = DB::table('products')
-                                                                            ->select('products.id', 'products.name', 'products.cover_image')
-                                                                            ->where('products.status', '!=', 3)
-                                                                            ->orderBy('products.id', 'DESC')
-                                                                            ->paginate(10);
-
-            $data['filter_keyword']                                     = '';
-            $data['filter_keyword_text']                                = 'All Time';
-
-            $data['viewCounts'] = [];
-            $data['viewMonths'] = [];
-            $startDate = '2024-12-01'; // Replace with your starting date
-            $monthYearArray = $this->getMonthYearList($startDate);
-            $viewCounts = [];
-            $viewMonths = [];
-            if(!empty($monthYearArray)){
-                for($k=0;$k<count($monthYearArray);$k++){
-                    $fDate = $monthYearArray[$k]['year'] . '-' . $monthYearArray[$k]['month'] . '-01';
-                    $tDate = $monthYearArray[$k]['year'] . '-' . $monthYearArray[$k]['month'] . '-31';
-                    $data['viewCounts'][] = UserView::where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-                    $data['viewMonths'][] = "'".$monthYearArray[$k]['month_name'] . "-" . $monthYearArray[$k]['year']."'";
-                }
-            }
-            
-            $title                                                      = 'Stats';
-            $page_name                                                  = 'stats';
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-        public function getMonthYearList($startDate) {
-            $start = new DateTime($startDate);
-            $end = new DateTime(); // Current date
-            $end->modify('last day of this month'); // End of the current month
-            $interval = new DateInterval('P1M'); // Interval of 1 month
-            $period = new DatePeriod($start, $interval, $end->add($interval)); // Period from start to end
-
-            $monthYearList = [];
-            foreach ($period as $date) {
-                // $monthYearList[] = $date->format('Y-m'); // Format as "YYYY-MM"
-                $monthYearList[] = [
-                    'month' => $date->format('m'), // Full month name
-                    'month_name' => $date->format('M'), // Full month name
-                    'year' => $date->format('Y'),  // Year
-                ];
-            }
-
-            return $monthYearList;
-        }
-        public function message(Request $request){
-            $data = [];
-            $title                                                      = 'Message';
-            $page_name                                                  = 'message';
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-        public function userAllActivity(Request $request){
-            $data['rows']                                               = DB::table('user_website_activities')
-                                                                                ->join('users', 'user_website_activities.user_id', '=', 'users.id')
-                                                                                ->select('user_website_activities.*', 'users.profile_image')
-                                                                                ->orderBy('user_website_activities.id', 'DESC')
-                                                                                ->get();
-            $title                                                      = 'User All Activity';
-            $page_name                                                  = 'user-all-activity';
-            echo $this->admin_after_login_layout($title,$page_name,$data);
-        }
-        public function dashboardFilter(Request $request){
-            $postData = $request->all();
-            $fDate = '';
-            $tDate = '';
-            if($postData['filter_keyword'] == 'today'){
-                $fDate          = date('Y-m-d');
-                $tDate          = date('Y-m-d');
-                $filter_keyword_text = 'Today';
-            }
-            if($postData['filter_keyword'] == 'yesterday'){
-                $fDate          = date('Y-m-d',strtotime("-1 days"));
-                $tDate          = date('Y-m-d',strtotime("-1 days"));
-                $filter_keyword_text = 'Yesterday';
-            }
-            if($postData['filter_keyword'] == 'this_month'){
-                $fDate          = date('Y-m')."-01";
-                $tDate          = date('Y-m-d');
-                $filter_keyword_text = 'This Month';
-            }
-            if($postData['filter_keyword'] == 'last_month'){
-                $fDate          = date("Y-m-d", mktime(0, 0, 0, date("m")-1, 1));
-                $tDate          = date("Y-m-d", mktime(0, 0, 0, date("m"), 0));
-                $filter_keyword_text = 'Last Month';
-            }
-            if($postData['filter_keyword'] == 'last_7_days'){
-                $fDate          = date('Y-m-d', strtotime('-7 days'));
-                $tDate          = date('Y-m-d',strtotime("-1 days"));
-                $filter_keyword_text = 'Last 7 Days';
-            }
-            if($postData['filter_keyword'] == 'last_30_days'){
-                $fDate          = date('Y-m-d', strtotime('-30 days'));
-                $tDate          = date('Y-m-d',strtotime("-1 days"));
-                $filter_keyword_text = 'Last 30 Days';
-            }
-            if($postData['filter_keyword'] == 'this_year'){
-                $fDate          = date('Y')."-01-01";
-                $tDate          = date('Y')."-12-31";
-                $filter_keyword_text = 'This Year';
-            }
-            if($postData['filter_keyword'] == 'last_year'){
-                $fDate          = (date('Y') - 1)."-01-01";
-                $tDate          = (date('Y') - 1)."-12-31";
-                $filter_keyword_text = 'Last Year';
-            }
-            if($postData['filter_keyword'] == ''){
-                return redirect()->to('/admin/dashboard');
-            }
-            $data['filter_keyword']                                     = $postData['filter_keyword'];
-            $data['filter_keyword_text']                                = $filter_keyword_text;
-
-            // $data['total_products']                                     = Product::where('status', '!=', 3)->where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-            // $data['total_new_products']                                 = Product::where('status', '!=', 3)->where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->where('is_new', '=', 1)->count();
-            // $data['total_active_products']                              = Product::where('status', '=', 1)->where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-
-            // $data['total_orders']                                       = Order::count();
-            // $data['total_new_orders']                                   = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->where('status', '=', 1)->count();
-            // $data['total_rejected_orders']                              = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->where('status', '=', 6)->count();
-            // $data['total_cancelled_orders']                             = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->where('status', '=', 7)->count();
-
-            // $data['total_customers']                                    = User::where('status', '!=', 3)->where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-            // $data['total_sales']                                        = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->sum('net_amt');
-            // $data['total_refunds']                                      = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->where('is_refund', '=', 1)->sum('refund_amount');
-
-            $data['total_view']                                         = UserView::where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-            $data['total_visit']                                        = UserVisit::where('created_at', '>=', $fDate)->where('created_at', '<=', $tDate)->count();
-            $data['total_sales']                                        = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->sum('net_amt');
-            $data['total_orders']                                       = Order::where('order_date', '>=', $fDate)->where('order_date', '<=', $tDate)->count();
-
-            $data['total_active_products']                              = Product::where('status', '=', 1)->count();
-            $data['total_deactive_products']                            = Product::where('status', '=', 0)->count();
-            $data['total_draft_products']                               = Product::where('status', '=', 2)->count();
-
-            $data['total_new_orders']                                   = Order::where('status', '=', 1)->count();
-            $data['total_processing_orders']                            = Order::where('status', '=', 2)->count();
-            $data['total_incomplete_orders']                            = Order::where('status', '=', 3)->count();
-            $data['total_shipped_orders']                               = Order::where('status', '=', 4)->count();
-            $data['total_complete_orders']                              = Order::where('status', '=', 5)->count();
-            $data['total_rejected_orders']                              = Order::where('status', '=', 6)->count();
-            $data['total_cancelled_orders']                             = Order::where('status', '=', 7)->count();
-
-            $data['recent_activities']                                  = DB::table('user_website_activities')
-                                                                                ->join('users', 'user_website_activities.user_id', '=', 'users.id')
-                                                                                ->select('user_website_activities.*', 'users.profile_image')
-                                                                                ->orderBy('user_website_activities.id', 'DESC')
-                                                                                ->limit(10)
-                                                                                ->get();
-
-            $title                                                      = 'Dashboard';
             $page_name                                                  = 'dashboard-new';
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }

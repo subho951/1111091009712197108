@@ -62,6 +62,7 @@ class MediaController extends Controller
 
             if($request->isMethod('post')){
                 $request->validate([
+                    'title'   => 'required',
                     'photo'   => 'required',
                     'photo.*' => 'image|mimes:jpg,jpeg,png,webp|max:200', // 200 KB
                 ]);
@@ -89,6 +90,7 @@ class MediaController extends Controller
                         $fields = [
                             'institute_id' => $institute_id,
                             'category_id' => $category_id,
+                            'title' => $request->title,
                             'media_file' => $uploadedFiles[$k],
                         ];
                         Media::insert($fields);

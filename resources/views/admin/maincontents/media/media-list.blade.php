@@ -41,6 +41,7 @@ $controllerRoute = $module['controller_route'];
                         <div class="col-md-12">
                             <form method="POST" enctype="multipart/form-data" style="border:1px solid #01010129; padding:10px; border-radius:10px; margin-bottom:10px;">
                                 @csrf
+                                <input type="text" name="title" class="form-control mb-3" id="title" multiple required placeholder="Image Title">
                                 <input type="file" name="photo[]" class="form-control mb-3" id="photo" multiple required>
                                 <button type="submit" class="btn btn-primary">Upload</button>
                             </form>
@@ -49,8 +50,17 @@ $controllerRoute = $module['controller_route'];
                             <div class="row">
                                 <?php if($medias){ foreach($medias as $media){?>
                                     <div class="col-md-2">
-                                        <img src="<?= url('public/') . '/' . $media->media_file ?>" class="img-thumbnail" style="width:100%; height:200px; margin-bottom:10px;">
-                                        <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($media->id))?>" class="btn btn-outline-danger btn-sm btn-block mb-3" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i> Delete</a>
+                                        <div class="card">
+                                            <div class="card-header bg-danger text-light">
+                                                <h6><?= $media->title ?></h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <img src="<?= url('public/') . '/' . $media->media_file ?>" class="img-thumbnail" style="width:100%; height:200px; margin-bottom:10px;">
+                                            </div>
+                                            <div class="card-footer">
+                                                <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($media->id))?>" class="btn btn-outline-danger btn-sm btn-block mb-3" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i> Delete</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 <?php } }?>
                             </div>

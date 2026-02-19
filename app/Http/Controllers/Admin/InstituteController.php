@@ -41,8 +41,9 @@ class InstituteController extends Controller
 
             if($request->isMethod('post')){
                 $request->validate([
-                    'name'          => 'required|string',
-                    'logo'          => 'required|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
+                    'name'                      => 'required|string',
+                    'background_color'          => 'required|string',
+                    'logo'                      => 'required|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
                 ]);
 
                 /** Photo Upload */
@@ -50,8 +51,9 @@ class InstituteController extends Controller
                 $request->logo->move(public_path('uploads/institute'), $photoName);
 
                 Institute::create([
-                    'name'          => $request->name,
-                    'photo'         => $photoName,
+                    'name'                      => $request->name,
+                    'background_color'          => $request->background_color,
+                    'photo'                     => $photoName,
                 ]);
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' added successfully !!!');
@@ -76,8 +78,9 @@ class InstituteController extends Controller
                 $member = Institute::findOrFail($id);
 
                 $request->validate([
-                    'name'         => 'required',
-                    'logo'        => 'nullable|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
+                    'name'                      => 'required',
+                    'background_color'          => 'required|string',
+                    'logo'                      => 'nullable|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
                 ]);
 
                 /** Photo Update */
@@ -92,11 +95,9 @@ class InstituteController extends Controller
                     $member->logo = $photoName;
                 }
 
-                // Helper::pr([
-                //     'name'          => $request->name,
-                // ]);
                 $member->update([
-                    'name'          => $request->name,
+                    'name'                      => $request->name,
+                    'background_color'          => $request->background_color,
                 ]);
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');

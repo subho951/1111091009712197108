@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 29, 2026 at 02:49 PM
+-- Generation Time: Feb 19, 2026 at 07:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -228,6 +228,7 @@ INSERT INTO `general_settings` (`id`, `site_name`, `site_phone`, `site_mail`, `s
 CREATE TABLE `institutes` (
   `id` int(11) NOT NULL,
   `name` text DEFAULT NULL,
+  `background_color` text DEFAULT NULL,
   `logo` text DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
@@ -239,9 +240,11 @@ CREATE TABLE `institutes` (
 -- Dumping data for table `institutes`
 --
 
-INSERT INTO `institutes` (`id`, `name`, `logo`, `deleted_at`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Institute 1', '1769435673_simple-karate-logo-vector.jpg', NULL, 1, '2026-01-26 06:01:56', '2026-01-27 08:29:44'),
-(2, 'Institute 2', '1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg', NULL, 1, '2026-01-26 06:01:56', '2026-01-27 08:29:49');
+INSERT INTO `institutes` (`id`, `name`, `background_color`, `logo`, `deleted_at`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Om Dayal Group of Institutions', '#dc3545', '1769435673_simple-karate-logo-vector.jpg', NULL, 1, '2026-01-26 06:01:56', '2026-02-19 12:23:34'),
+(2, 'DPS Durgapur', '#ffc107', '1769435438_360_F_1525361933_wrAhkKnIAuYmw9suastDjy6ZDuPLld64.jpg', NULL, 1, '2026-01-26 06:01:56', '2026-02-19 17:54:08'),
+(3, 'DPS Rupy Park', '#198754', '1769435673_simple-karate-logo-vector.jpg', NULL, 1, '2026-02-19 12:20:25', '2026-02-19 17:54:54'),
+(4, 'Vidyamandir Classes', '#0dcaf0', '1771523719_6980c69ac0836.png', NULL, 1, '2026-02-19 12:20:45', '2026-02-19 12:25:19');
 
 -- --------------------------------------------------------
 
@@ -279,8 +282,9 @@ CREATE TABLE `medias` (
   `id` int(11) NOT NULL,
   `institute_id` int(11) NOT NULL DEFAULT 0,
   `category_id` int(11) NOT NULL DEFAULT 0,
+  `title` text DEFAULT NULL,
   `media_file` text DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
+  `deleted_at` timestamp NULL DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp()
@@ -290,20 +294,23 @@ CREATE TABLE `medias` (
 -- Dumping data for table `medias`
 --
 
-INSERT INTO `medias` (`id`, `institute_id`, `category_id`, `media_file`, `deleted_at`, `status`, `created_at`, `updated_at`) VALUES
-(13, 2, 5, 'uploads/media/1769690286_697b54ae16d47.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:45'),
-(14, 2, 5, 'uploads/media/1769690286_697b54ae16f1b.png', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:48'),
-(15, 2, 5, 'uploads/media/1769690286_697b54ae17010.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:50'),
-(16, 2, 5, 'uploads/media/1769690286_697b54ae170eb.png', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:52'),
-(17, 2, 5, 'uploads/media/1769690286_697b54ae17221.jpg', '2026-01-29 13:43:10', 3, '2026-01-29 12:38:06', '2026-01-29 08:13:10'),
-(18, 2, 5, 'uploads/media/1769690286_697b54ae1735d.png', '2026-01-29 13:41:46', 3, '2026-01-29 12:38:06', '2026-01-29 08:11:46'),
-(19, 2, 5, 'uploads/media/1769690286_697b54ae1746a.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-01-29 13:33:59'),
-(20, 2, 5, 'uploads/media/1769694202_697b63fa0bfd0.png', NULL, 1, '2026-01-29 13:43:22', NULL),
-(21, 2, 5, 'uploads/media/1769694202_697b63fa0c1ee.jpg', NULL, 1, '2026-01-29 13:43:22', NULL),
-(22, 2, 5, 'uploads/media/1769694202_697b63fa0c2d2.jpg', NULL, 1, '2026-01-29 13:43:22', NULL),
-(23, 1, 3, 'uploads/media/1769694270_697b643ec1b01.png', NULL, 1, '2026-01-29 13:44:30', NULL),
-(24, 1, 3, 'uploads/media/1769694270_697b643ec1cf5.jpg', NULL, 1, '2026-01-29 13:44:30', NULL),
-(25, 1, 3, 'uploads/media/1769694270_697b643ec1dce.png', NULL, 1, '2026-01-29 13:44:30', NULL);
+INSERT INTO `medias` (`id`, `institute_id`, `category_id`, `title`, `media_file`, `deleted_at`, `status`, `created_at`, `updated_at`) VALUES
+(13, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae16d47.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:24'),
+(14, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae16f1b.png', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(15, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae17010.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(16, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae170eb.png', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(17, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae17221.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(18, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae1735d.png', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(19, 2, 5, 'Sample Title', 'uploads/media/1769690286_697b54ae1746a.jpg', NULL, 1, '2026-01-29 12:38:06', '2026-02-19 18:07:39'),
+(20, 2, 5, 'Sample Title', 'uploads/media/1769694202_697b63fa0bfd0.png', NULL, 1, '2026-01-29 13:43:22', '2026-02-19 18:07:39'),
+(21, 2, 5, 'Sample Title', 'uploads/media/1769694202_697b63fa0c1ee.jpg', NULL, 1, '2026-01-29 13:43:22', '2026-02-19 18:07:39'),
+(22, 2, 5, 'Sample Title', 'uploads/media/1769694202_697b63fa0c2d2.jpg', NULL, 1, '2026-01-29 13:43:22', '2026-02-19 18:07:39'),
+(23, 1, 3, 'Sample Title', 'uploads/media/1769694270_697b643ec1b01.png', NULL, 1, '2026-01-29 13:44:30', '2026-02-19 18:07:39'),
+(24, 1, 3, 'Sample Title', 'uploads/media/1769694270_697b643ec1cf5.jpg', NULL, 1, '2026-01-29 13:44:30', '2026-02-19 18:07:39'),
+(25, 1, 3, 'Sample Title', 'uploads/media/1769694270_697b643ec1dce.png', NULL, 1, '2026-01-29 13:44:30', '2026-02-19 18:07:39'),
+(26, 1, 3, 'Test 19022026', 'uploads/media/1771524839_699752e7c94b2.jpg', NULL, 1, '2026-02-19 18:13:59', NULL),
+(27, 1, 3, 'Test 19022026', 'uploads/media/1771524839_699752e7c964b.jpg', NULL, 1, '2026-02-19 18:13:59', NULL),
+(28, 1, 3, 'Test 19022026', 'uploads/media/1771524839_699752e7c970f.jpg', NULL, 1, '2026-02-19 18:13:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -456,7 +463,12 @@ INSERT INTO `user_activities` (`activity_id`, `user_email`, `user_name`, `user_t
 (15, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-28 13:07:18', '2026-01-28 13:07:18'),
 (16, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-28 13:46:46', '2026-01-28 13:46:46'),
 (17, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-29 12:23:24', '2026-01-29 12:23:24'),
-(18, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-29 12:23:24', '2026-01-29 12:23:24');
+(18, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-01-29 12:23:24', '2026-01-29 12:23:24'),
+(19, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-01-29 13:49:33', '2026-01-29 13:49:33'),
+(20, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-02-18 14:06:29', '2026-02-18 14:06:29'),
+(21, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 2, 'You Are Successfully Logged Out !!!', 'WEB', '2026-02-18 14:10:37', '2026-02-18 14:10:37'),
+(22, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-02-19 17:15:37', '2026-02-19 17:15:37'),
+(23, 'pratimt@gmail.com', 'Master Admin', 'ADMIN', '::1', 1, 'Login Success !!!', 'WEB', '2026-02-19 17:20:59', '2026-02-19 17:20:59');
 
 --
 -- Indexes for dumped tables
@@ -604,7 +616,7 @@ ALTER TABLE `general_settings`
 -- AUTO_INCREMENT for table `institutes`
 --
 ALTER TABLE `institutes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `magazines`
@@ -616,7 +628,7 @@ ALTER TABLE `magazines`
 -- AUTO_INCREMENT for table `medias`
 --
 ALTER TABLE `medias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `news`
@@ -646,7 +658,7 @@ ALTER TABLE `user_accesses`
 -- AUTO_INCREMENT for table `user_activities`
 --
 ALTER TABLE `user_activities`
-  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `activity_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
