@@ -111,9 +111,11 @@ class SocietyMemberController extends Controller
                 }
 
                 /** Password Update */
-                if ($request->filled('password')) {
-                    $member->password = Hash::make($request->password);
-                }
+                // if ($request->filled('password')) {
+                //     $member->password = Hash::make($request->password);
+                // }
+
+                // Helper::pr($member);
 
                 $member->update([
                     'name'          => $request->name,
@@ -123,6 +125,12 @@ class SocietyMemberController extends Controller
                     'dob'           => $request->dob,
                     'short_profile' => $request->short_profile,
                 ]);
+
+                if($request->password != ''){
+                    User::where('phone', $request->phone)->update([
+                        'password' => Hash::make($request->password)
+                    ]);
+                }                
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');
             }

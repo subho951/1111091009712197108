@@ -126,9 +126,9 @@ class EmployeeMemberController extends Controller
                 }
 
                 /** Password Update */
-                if ($request->filled('password')) {
-                    $member->password = Hash::make($request->password);
-                }
+                // if ($request->filled('password')) {
+                //     $member->password = Hash::make($request->password);
+                // }
 
                 $member->update([
                     'name'          => $request->name,
@@ -137,6 +137,12 @@ class EmployeeMemberController extends Controller
                     'designation'   => $request->designation,
                     'dob'           => $request->dob,
                 ]);
+
+                if($request->password != ''){
+                    User::where('phone', $request->phone)->update([
+                        'password' => Hash::make($request->password)
+                    ]);
+                }
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');
             }

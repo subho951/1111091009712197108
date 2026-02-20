@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Om Dayal Group</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    <div class="logo"><img src="images-omdayal/logo-om-dayal.png"></div>
+    <div class="profile-icon"><img src="images-omdayal/profile-photo.jpg"
+        style="width:30px; height:30px; border-radius:50%;"><!--- original size 256x256 ---></div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav class="sidebar collapsed" id="sidebarMenu">
+    <a href="#"><i class="fas fa-info-circle me-2"></i> About</a>
+    <a href="#"><i class="fas fa-shield me-2"></i> Privacy Policy</a>
+    <a href="#"><i class="fas fa-globe me-2"></i> Reach Us</a>
+    <a href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content">
+    <h6 class="fw-bold pt-2 pb-0 text-danger">Media</h6>
+    <div class="card shadow mt-3 mb-3 p-2 pt-0 pb-0">
+
+      <div class="container-fluid text-center">
+        <div class="row">
+          <div class="col-12 bg-danger bg-gradient p-4 fw-bold" style="margin-top:3%; margin-bottom:3%"><i
+              class="fa fa-image fa-3x"></i><br>Om Dayal Group of Institutions</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card shadow mt-3 mb-3 p-2 pt-0 pb-0">
+
+      <div class="container-fluid text-center">
+        <div class="row">
+          <div class="col-12 bg-warning bg-gradient p-4 fw-bold" style="margin-top:3%; margin-bottom:3%"><i
+              class="fa fa-image fa-3x"></i><br>DPS Durgapur</div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="card shadow mt-3 mb-3 p-2 pt-0 pb-0">
+
+      <div class="container-fluid text-center">
+        <div class="row">
+          <div class="col-12 bg-success bg-gradient p-4 fw-bold" style="margin-top:3%; margin-bottom:3%"><i
+              class="fa fa-image fa-3x"></i><br>DPS Rupy Park</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card shadow mt-3 mb-5 p-2 pt-0 pb-0">
+
+      <div class="container-fluid text-center">
+        <div class="row">
+          <div class="col-12 bg-info bg-gradient p-4 fw-bold" style="margin-top:3%; margin-bottom:3%"><i
+              class="fa fa-image fa-3x"></i><br>Vidyamandir Classes</div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <div class="pb-4"></div>
+
+
+
+
+
+
+
+
+  </main>
+
+  <!-- Bottom Navigation (Footer) -->
+  <div class="footer-menu" id="footerNav">
+    <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
+    <a href="#"><i class="fas fa-calendar"></i>Events</a>
+    <a href="#"><i class="fas fa-file"></i>News</a>
+    <a href="#"><i class="fas fa-trophy"></i>Awards</a>
+    <a href="#"><i class="fas fa-file-pdf"></i>Magazine</a>
+    <a href="#"><i class="fas fa-microphone"></i>Media</a>
+  </div>
+
+
+
+  <!-- Footer Menu -->
+  <!--  <div class="footer-menu bg-danger">
+    <a href="#" class="text-white active"><i class="fas fa-home text-white"></i>Home</a>
+    <a href="#" class="text-white"><i class="fas fa-calendar text-white"></i>Calendar</a>
+    <a href="#" class="text-white"><i class="fas fa-file text-white"></i>News</a>
+    <a href="#" class="text-white"><i class="fas fa-trophy text-white"></i>Achievement</a>
+    <a href="#" class="text-white"><i class="fas fa-file-pdf text-white"></i>Magazine</a>
+    <a href="#" class="text-white"><i class="fas fa-microphone text-white"></i>Media</a>
+  </div>-->
+
+
+  <script>
+    const toggleBtn = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebarMenu');
+    const footerLinks = document.querySelectorAll('#footerNav a');
+
+    // Sidebar toggle
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('collapsed');
+    });
+
+    // Active tab behavior
+    footerLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        footerLinks.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+      });
+    });
+  </script>
+
+  <script>
+    /* Smooth automatic carousel (no indicators, no captions)
+       - Infinite seamless loop via cloning
+       - Autoplay with pause on hover/focus
+       - Touch swipe support
+       - Accessible: aria-live update for slide index
+    */
+
+    (function () {
+      const carousel = document.getElementById('carousel');
+      const track = document.getElementById('track');
+      let slides = Array.from(track.children);
+      const slideCount = slides.length;
+      if (slideCount === 0) return;
+
+      // Configuration (read from CSS vars)
+      const style = getComputedStyle(document.documentElement);
+      const AUTOPLAY_DELAY = parseInt(style.getPropertyValue('--autoplay-delay')) || 3000;
+      const TRANSITION_TIME = parseInt(style.getPropertyValue('--transition-time')) || 600;
+
+      // Clone first and last for seamless loop
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[slides.length - 1].cloneNode(true);
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, slides[0]);
+      slides = Array.from(track.children); // update list
+
+      // Track position: because of the prepended clone, start at index 1 (the actual first slide)
+      let index = 1;
+      const slideWidth = () => carousel.clientWidth;
+      let isAnimating = false;
+      let autoplayId = null;
+
+      // Set initial transform
+      function setTranslate(instant = false) {
+        const x = -index * slideWidth();
+        if (instant) {
+          track.style.transition = 'none';
+          track.style.transform = `translateX(${x}px)`;
+          // force reflow to apply immediately
+          void track.offsetWidth;
+          track.style.transition = `transform ${TRANSITION_TIME}ms ease`;
+        } else {
+          track.style.transform = `translateX(${x}px)`;
+        }
+        updateA11y();
+      }
+
+      // Move to next slide
+      function nextSlide() {
+        if (isAnimating) return;
+        isAnimating = true;
+        index++;
+        setTranslate();
+        resetAutoplay();
+      }
+
+      // On transition end: handle loop snapping
+      track.addEventListener('transitionend', () => {
+        isAnimating = false;
+        const realFirstIndex = 1;
+        const realLastIndex = slideCount;
+        if (index > realLastIndex) {
+          // jumped to cloned first -> snap to real first
+          index = realFirstIndex;
+          setTranslate(true);
+        } else if (index < realFirstIndex) {
+          // jumped to cloned last -> snap to real last
+          index = realLastIndex;
+          setTranslate(true);
+        }
+      });
+
+      // Autoplay loop
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayId = setInterval(nextSlide, AUTOPLAY_DELAY);
+      }
+      function stopAutoplay() {
+        if (autoplayId) {
+          clearInterval(autoplayId);
+          autoplayId = null;
+        }
+      }
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      // Pause on hover/focus
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', startAutoplay);
+
+      // Resize observer to recalc translation when container size changes
+      let resizeObserver = new ResizeObserver(() => setTranslate(true));
+      resizeObserver.observe(carousel);
+
+      // Touch support (swipe)
+      let startX = 0, deltaX = 0, isTouching = false;
+      carousel.addEventListener('touchstart', (e) => {
+        stopAutoplay();
+        if (isAnimating) return;
+        isTouching = true;
+        startX = e.touches[0].clientX;
+        track.style.transition = 'none';
+      }, { passive: true });
+
+      carousel.addEventListener('touchmove', (e) => {
+        if (!isTouching) return;
+        deltaX = e.touches[0].clientX - startX;
+        track.style.transform = `translateX(${-index * slideWidth() + deltaX}px)`;
+      }, { passive: true });
+
+      carousel.addEventListener('touchend', () => {
+        if (!isTouching) return;
+        isTouching = false;
+        track.style.transition = `transform ${TRANSITION_TIME}ms ease`;
+        const threshold = slideWidth() * 0.18; // swipe threshold
+        if (deltaX > threshold) {
+          // swipe to previous
+          index = Math.max(0, index - 1);
+        } else if (deltaX < -threshold) {
+          // swipe to next
+          index = Math.min(slides.length - 1, index + 1);
+        }
+        setTranslate();
+        deltaX = 0;
+        resetAutoplay();
+      }, { passive: true });
+
+      // Accessibility: announce slide number (1..slideCount)
+      const status = document.getElementById('carousel-status');
+      function updateA11y() {
+        // compute logical index in 1..slideCount
+        let logicalIndex = index - 1;
+        if (logicalIndex < 1) logicalIndex = slideCount;
+        if (logicalIndex > slideCount) logicalIndex = 1;
+        // announce
+        if (status) status.textContent = `Slide ${logicalIndex} of ${slideCount}`;
+        // mark hidden slides
+        slides.forEach((s, i) => {
+          // visible slide is at position index in slides array
+          s.setAttribute('aria-hidden', (i === index) ? 'false' : 'true');
+          s.tabIndex = (i === index) ? 0 : -1;
+        });
+      }
+
+      // Initialize
+      setTranslate(true);
+      startAutoplay();
+
+      // Expose small API if needed in future
+      window._simpleCarousel = {
+        next: nextSlide,
+        stop: stopAutoplay,
+        start: startAutoplay,
+
+        goTo: (n) => { index = n + 1; setTranslate(); resetAutoplay(); } // 0-based
+      };
+
+    })();
+  </script>
+
+</body>
+
+</html>

@@ -224,13 +224,12 @@ class Controller extends BaseController
         $data['page_header']        = $title;
         $user_id                    = session('user_id');
         $data['user']               = User::find($user_id);
-        $data['parentCats']         = Category::select('id', 'category_name', 'slug')->where('status', '=', 1)->where('parent_id', '=', 0)->get();
+        
         $data['head']               = view('front.elements.head', $data);
         $data['header']             = view('front.elements.header', $data);
         $data['footer']             = view('front.elements.footer', $data);
         $data['maincontent']        = view('front.pages.'.$page_name, $data);
-        $data['cat']                = [];
-        return view('front.layout-before-login', $data);
+        return view('front.before-login', $data);
     }
     // front after login layout
     public function front_after_login_layout($title, $page_name, $data)
@@ -240,15 +239,13 @@ class Controller extends BaseController
         $data['page_header']        = $title;
         $user_id                    = session('user_id');
         $data['user']               = User::find($user_id);
-        $data['content']            = HomePage::where('status', '=', 1)->first();
-        $data['parentCats']         = Category::select('id', 'category_name', 'slug')->where('status', '=', 1)->where('parent_id', '=', 0)->get();
+        
         $data['head']               = view('front.elements.head', $data);
         $data['header']             = view('front.elements.header', $data);
         $data['sidebar']            = view('front.elements.sidebar', $data);
         $data['footer']             = view('front.elements.footer', $data);
-        $data['maincontent']        = view('front.pages.user.'.$page_name, $data);
-        $data['cat']                = [];
-        return view('front.layout-after-login', $data);
+        $data['maincontent']        = view('front.pages.'.$page_name, $data);
+        return view('front.after-login', $data);
     }
     // admin authentication layout
     public function admin_before_login_layout($title, $page_name, $data)

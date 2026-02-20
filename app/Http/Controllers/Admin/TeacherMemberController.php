@@ -140,9 +140,9 @@ class TeacherMemberController extends Controller
                 }
 
                 /** Password Update */
-                if ($request->filled('password')) {
-                    $member->password = Hash::make($request->password);
-                }
+                // if ($request->filled('password')) {
+                //     $member->password = Hash::make($request->password);
+                // }
 
                 $member->update([
                     'name'          => $request->name,
@@ -152,6 +152,12 @@ class TeacherMemberController extends Controller
                     'dob'           => $request->dob,
                     'institute_id'  => $request->institute_id,
                 ]);
+
+                if($request->password != ''){
+                    User::where('phone', $request->phone)->update([
+                        'password' => Hash::make($request->password)
+                    ]);
+                }
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');
             }

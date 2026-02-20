@@ -5,7 +5,7 @@
         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
           <div class="d-flex justify-content-center py-4">
             <a href="<?=url('admin')?>" class="d-flex align-items-center w-auto">
-              <img src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" style="width: 100%; height:100px;">
+              <img src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" style="width: 250px; height: 75px;">
               <!-- <span class="d-none d-lg-block"><?=$generalSetting->site_name?></span> -->
             </a>
           </div><!-- End Logo -->
@@ -54,9 +54,9 @@
                 <div class="col-12">
                   <button class="btn btn-primary w-100" type="submit">Sign In</button>
                 </div>
-                <div class="col-12">
+                <!-- <div class="col-12">
                   <p class="small mb-0">Forgot Password? <a href="{{ url('/admin/forgot-password') }}">Click Here</a></p>
-                </div>
+                </div> -->
               </form>
             </div>
           </div>

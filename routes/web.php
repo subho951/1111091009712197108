@@ -14,9 +14,16 @@ use App\Services\Schema\ProductSchemaService;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::match(['get', 'post'], '/', 'App\Http\Controllers\FrontController@signin');
+Route::match(['get', 'post'], '/logout', 'App\Http\Controllers\FrontController@signout');
+Route::match(['get', 'post'], '/home', 'App\Http\Controllers\FrontController@home');
+Route::match(['get', 'post'], '/events', 'App\Http\Controllers\FrontController@events');
+Route::match(['get', 'post'], '/news', 'App\Http\Controllers\FrontController@news');
+Route::match(['get', 'post'], '/awards', 'App\Http\Controllers\FrontController@awards');
+Route::match(['get', 'post'], '/magazines', 'App\Http\Controllers\FrontController@magazines');
+Route::match(['get', 'post'], '/media', 'App\Http\Controllers\FrontController@media');
+Route::match(['get', 'post'], '/page/{id}', 'App\Http\Controllers\FrontController@page');
+Route::match(['get', 'post'], '/reach', 'App\Http\Controllers\FrontController@reach');
 
 /* Admin Panel */
     Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
@@ -137,63 +144,3 @@ Route::get('/', function () {
         });
     });
 /* Admin Panel */
-/* Api */
-    Route::prefix('api')->namespace('App\Http\Controllers')->group(function(){
-        // Other Version 2 routes
-        /* before login */
-            Route::match(['get'], '/get-app-setting', 'ApiController@getAppSetting');
-            Route::match(['post'], '/get-static-pages', 'ApiController@getStaticPages');
-            Route::match(['post'], '/signup', 'ApiController@signup');
-            Route::match(['post'], '/signup-validate', 'ApiController@signupValidate');
-            Route::match(['post'], '/signin', 'ApiController@signin');
-            Route::match(['post'], '/forgot-password', 'ApiController@forgotPassword');
-            Route::match(['post'], '/validate-otp', 'ApiController@validateOtp');
-            Route::match(['post'], '/resend-otp', 'ApiController@resendOtp');
-            Route::match(['post'], '/reset-password', 'ApiController@resetPassword');
-            Route::match(['get'], '/get-home', 'ApiController@getHome');
-            Route::match(['get'], '/faq', 'ApiController@faq');
-            Route::match(['post'], '/contact-us', 'ApiController@contactUs');
-            Route::match(['post'], '/submit-subscriber', 'ApiController@submitSubscriber');
-            Route::match(['get'], '/get-parent-category', 'ApiController@getParentCategory');
-            Route::match(['post'], '/get-child-category', 'ApiController@getChildCategory');
-            Route::match(['post'], '/get-product-list-by-parent-category', 'ApiController@getProductListByParentCategory');
-            Route::match(['get'], '/get-all-product-list', 'ApiController@getAllProductList');
-            Route::match(['post'], '/product-filter', 'ApiController@productFilter');
-            Route::match(['post'], '/product-details', 'ApiController@productDetails');
-            Route::match(['post'], '/select-variation', 'ApiController@selectVariation');
-            Route::match(['post'], '/add-cart', 'ApiController@addCart');
-            Route::match(['get'], '/get-cart', 'ApiController@getCart');
-            Route::match(['post'], '/cart-item-remove', 'ApiController@cartItemRemove');
-            Route::match(['post'], '/update-cart-item', 'ApiController@updateCartItem');
-            Route::match(['post'], '/search-product', 'ApiController@searchProduct');
-            Route::match(['post'], '/search-suggestion', 'ApiController@searchSuggestion');
-            Route::match(['post'], '/apply-coupon', 'ApiController@applyCoupon');
-            Route::match(['get'], '/remove-coupon', 'ApiController@removeCoupon');
-            Route::match(['post'], '/payment-process', 'ApiController@paymentProcess');
-        /* before login */
-        /* after login */
-            Route::match(['get'], '/signout', 'ApiController@signout');
-            Route::match(['get'], '/dashboard', 'ApiController@dashboard');
-            Route::match(['post'], '/change-password', 'ApiController@changePassword');
-            Route::match(['get'], '/get-profile', 'ApiController@getProfile');
-            Route::match(['get'], '/edit-profile', 'ApiController@editProfile');
-            Route::match(['post'], '/update-profile', 'ApiController@updateProfile');
-            Route::match(['post'], '/upload-profile-image', 'ApiController@uploadProfileImage');
-            Route::match(['get'], '/get-address', 'ApiController@getAddress');
-            Route::match(['post'], '/add-address', 'ApiController@addAddress');
-            Route::match(['post'], '/delete-address', 'ApiController@deleteAddress');
-            Route::match(['get'], '/get-reviews', 'ApiController@getReview');
-            Route::match(['get'], '/get-wishlist', 'ApiController@getWishlist');
-            Route::match(['post'], '/delete-wishlist', 'ApiController@deleteWishlist');
-            Route::match(['post'], '/add-wishlist', 'ApiController@addWishlist');
-            Route::match(['post'], '/add-review', 'ApiController@addReview');
-            Route::match(['get'], '/checkout', 'ApiController@checkout');
-            Route::match(['post'], '/place-order', 'ApiController@placeOrder');
-            Route::match(['get'], '/order-list', 'ApiController@orderList');
-            Route::match(['post'], '/order-details', 'ApiController@orderDetails');
-            Route::match(['post'], '/print-invoice', 'ApiController@printInvoice');
-            Route::match(['get'], '/cancel-order-reason', 'ApiController@cancelOrderReason');
-            Route::match(['post'], '/cancel-order', 'ApiController@cancelOrder');
-        /* after login */
-    });
-/* Api */
