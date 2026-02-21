@@ -1,4 +1,4 @@
-<h6 class="fw-bold pt-2 pb-0 text-danger text-uppercase">Society Members</h6>
+<h6 class="fw-bold pt-2 pb-0 text-danger text-uppercase">Admin & Employee Members</h6>
 <input type="text" class="form-control" placeholder="Search by name or designation..." name="search_keyword" id="search_keyword">
 <div class="card shadow mt-3 mb-3">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
                     <?php if($member->photo != ''){?>
                         <img src="<?=env('UPLOADS_URL'). '/user/' . $member->photo?>" class="w-100 rounded-2" alt="<?= $member->name ?>" style="height: 153px;">
                     <?php } else {?>
-                        <img src="<?=env('FRONT_ASSETS_URL')?>images-omdayal/member-society.jpg" class="w-100 rounded-2" alt="<?= $member->name ?>" style="height: 153px;">
+                        <img src="<?=env('FRONT_ASSETS_URL')?>images-omdayal/member-employee.jpg" class="w-100 rounded-2" alt="<?= $member->name ?>" style="height: 153px;">
                     <?php }?>
                     <h6 class="text-center pt-2" style="font-size:12px; font-weight:900;"><?= $member->name ?></h6>
                     <h6 class="text-center pt-0 text-danger" style="font-size:11px; font-weight:900; margin-top:-6px;">
@@ -36,7 +36,7 @@
                                 <?php if ($member->photo != '') { ?>
                                     <img src="<?= env('UPLOADS_URL') . '/user/' . $member->photo ?>" alt="<?= $member->name ?>" style="border-radius:50%; width:150px; height:150px; border:1px solid #A40000;">
                                 <?php } else { ?>
-                                    <img src="<?= env('FRONT_ASSETS_URL') ?>images-omdayal/member-society.jpg" alt="<?= $member->name ?>" style="border-radius:50%; width:150px; height:150px; border:1px solid #A40000;">
+                                    <img src="<?= env('FRONT_ASSETS_URL') ?>images-omdayal/member-employee.jpg" alt="<?= $member->name ?>" style="border-radius:50%; width:150px; height:150px; border:1px solid #A40000;">
                                 <?php } ?>
 
                                 <h6 class="fw-bold mt-2"><?= $member->name ?></h6>

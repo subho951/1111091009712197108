@@ -387,7 +387,7 @@ class FrontController extends Controller
             public function societyMembers(Request $request)
             {
                 $user_id                        = session('user_id');
-                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 1)->orderBy('name', 'ASC')->get();
+                $data['members']                = User::where('status', '=', 1)->where('type', '=', 1)->orderBy('name', 'ASC')->get();
                 $title                          = 'Society Members';
                 $page_name                      = 'society-members';
                 echo $this->front_after_login_layout($title, $page_name, $data);
@@ -395,7 +395,7 @@ class FrontController extends Controller
             public function employeeMembers(Request $request)
             {
                 $user_id                        = session('user_id');
-                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 2)->orderBy('name', 'ASC')->get();
+                $data['members']                = User::where('status', '=', 1)->where('type', '=', 2)->orderBy('name', 'ASC')->get();
                 $title                          = 'Employee Members';
                 $page_name                      = 'employee-members';
                 echo $this->front_after_login_layout($title, $page_name, $data);
@@ -403,11 +403,21 @@ class FrontController extends Controller
             public function teacherMembers(Request $request)
             {
                 $user_id                        = session('user_id');
-                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 3)->orderBy('name', 'ASC')->get();
+                $data['members']                = User::where('status', '=', 1)->where('type', '=', 3)->orderBy('name', 'ASC')->get();
                 $title                          = 'Teacher Members';
                 $page_name                      = 'teacher-members';
                 echo $this->front_after_login_layout($title, $page_name, $data);
             }
         /* members */
+        /* reach */
+            public function reach(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['settings']               = GeneralSetting::where('published', '=', 1)->first();
+                $title                          = 'Reach Us';
+                $page_name                      = 'reach-us';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* reach */
     /* after login */
 }
