@@ -17,6 +17,7 @@ class Achievement extends Authenticatable
         'name',
         'news_date',
         'photo',
+        'description',
         'status',
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Achievement;
 use App\Services\OpenAiAuth;
 use App\Services\AuthorizeNetService;
 use net\authorize\api\contract\v1 as AnetAPI;
@@ -19,6 +20,10 @@ use App\Models\Category;
 use App\Models\UserActivity;
 use App\Models\User;
 use App\Models\Page;
+use App\Models\Event;
+use App\Models\Magazine;
+use App\Models\News;
+use App\Models\Institute;
 
 use Auth;
 use Session;
@@ -272,6 +277,17 @@ class FrontController extends Controller
         }
     /* forgot password */
     /* after login */
+        /* home */
+            public function home(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['events']                 = Event::select('id', 'title', 'venue', 'event_date', 'photo')->where('status', '=', 1)->where('event_date', '>', date('Y-m-d'))->orderBy('id', 'DESC')->get();
+                $data['page_content']           = Page::select('page_title', 'long_description')->where('slug', '=', 'about-us')->first();
+                $title                          = 'Home';
+                $page_name                      = 'home';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* home */
         /* page */
             public function page(Request $request, $slug)
             {
@@ -282,25 +298,116 @@ class FrontController extends Controller
                 echo $this->front_after_login_layout($title, $page_name, $data);
             }
         /* page */
-        /* home */
-            public function home(Request $request)
+        /* events */
+            public function events(Request $request)
             {
                 $user_id                        = session('user_id');
-                $data = [];
-                $title                          = 'Home';
-                $page_name                      = 'home';
+                $data['upcoming_events']        = Event::select('id', 'title', 'venue', 'event_date', 'photo')->where('status', '=', 1)->where('event_date', '>', date('Y-m-d'))->orderBy('id', 'DESC')->get();
+                $data['past_events']            = Event::select('id', 'title', 'venue', 'event_date', 'photo')->where('status', '=', 1)->where('event_date', '<=', date('Y-m-d'))->orderBy('id', 'DESC')->get();
+                $title                          = 'Events';
+                $page_name                      = 'events';
                 echo $this->front_after_login_layout($title, $page_name, $data);
             }
-        /* home */
-        /* home */
+            public function eventDetail(Request $request, $id)
+            {
+                $user_id                        = session('user_id');
+                $data['event']                  = Event::where('id', '=', $id)->first();
+                $title                          = (($data['event'])?$data['event']->title:'');
+                $page_name                      = 'event-detail';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* events */
+        /* magazines */
             public function magazines(Request $request)
             {
                 $user_id                        = session('user_id');
-                $data = [];
+                $data['magazines']              = Magazine::select('id', 'name', 'news_date', 'photo', 'mag_file')->where('status', '=', 1)->orderBy('id', 'DESC')->get();
                 $title                          = 'Mgazines';
                 $page_name                      = 'magazines';
                 echo $this->front_after_login_layout($title, $page_name, $data);
             }
-        /* home */
+        /* magazines */
+        /* news */
+            public function news(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['news']                   = News::select('id', 'name', 'news_date', 'photo')->where('status', '=', 1)->orderBy('id', 'DESC')->get();
+                $title                          = 'News';
+                $page_name                      = 'news';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+            public function newsDetail(Request $request, $id)
+            {
+                $user_id                        = session('user_id');
+                $data['row']                    = News::where('id', '=', $id)->first();
+                $title                          = (($data['row'])?$data['row']->name:'');
+                $page_name                      = 'news-detail';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* news */
+        /* awards */
+            public function awards(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['awards']                 = Achievement::select('id', 'name', 'news_date', 'photo')->where('status', '=', 1)->orderBy('id', 'DESC')->get();
+                $title                          = 'Awards';
+                $page_name                      = 'awards';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+            public function awardsDetail(Request $request, $id)
+            {
+                $user_id                        = session('user_id');
+                $data['row']                    = Achievement::where('id', '=', $id)->first();
+                $title                          = (($data['row'])?$data['row']->name:'');
+                $page_name                      = 'awards-detail';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* awards */
+        /* media */
+            public function media(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['ins']                    = Institute::select('id', 'name', 'background_color', 'logo')->where('status', '=', 1)->orderBy('id', 'ASC')->get();
+                $title                          = 'Media';
+                $page_name                      = 'media';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+            public function mediaDetail(Request $request, $id)
+            {
+                $user_id                        = session('user_id');
+                $data['institute_id']           = $id;
+                $data['institute']              = Institute::select('name')->where('id', '=', $id)->first();
+                $data['cats']                   = Category::select('id', 'name')->where('institute_id', '=', $id)->get();
+                $title                          = (($data['institute'])?$data['institute']->name:'');
+                $page_name                      = 'media-detail';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* media */
+        /* members */
+            public function societyMembers(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 1)->orderBy('name', 'ASC')->get();
+                $title                          = 'Society Members';
+                $page_name                      = 'society-members';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+            public function employeeMembers(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 2)->orderBy('name', 'ASC')->get();
+                $title                          = 'Employee Members';
+                $page_name                      = 'employee-members';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+            public function teacherMembers(Request $request)
+            {
+                $user_id                        = session('user_id');
+                $data['ins']                    = User::select('id', 'name', 'photo', 'photo')->where('status', '=', 1)->where('type', '=', 3)->orderBy('name', 'ASC')->get();
+                $title                          = 'Teacher Members';
+                $page_name                      = 'teacher-members';
+                echo $this->front_after_login_layout($title, $page_name, $data);
+            }
+        /* members */
     /* after login */
 }

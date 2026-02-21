@@ -225,3 +225,7 @@ body {
         --carousel-height: 60vh;
     }
 }
+a{
+    text-decoration: none !important;
+    color : #000;
+}

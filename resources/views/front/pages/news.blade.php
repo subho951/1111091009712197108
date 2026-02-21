@@ -1,12 +1,12 @@
-<h6 class="fw-bold pt-2 pb-0 text-danger">ODG Magazines</h6>
-<?php if($magazines){ foreach($magazines as $row){?>
+<h6 class="fw-bold pt-2 pb-0 text-danger">Recent News</h6>
+<?php if($news){ foreach($news as $row){?>
     <div class="card shadow mt-3 mb-3">
-        <a href="<?=env('UPLOADS_URL'). '/magazine/' . $row->mag_file?>" title="<?= $row->name ?>" download>
+        <a href="<?= url('news-details/' . $row->id) ?>">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-3" style="margin-top:3%; margin-bottom:3%"><i class="fa fa-file-pdf text-danger fa-3x"></i>
-                    </div>
-                    <div class="col-9">
+                    <div class="col-4" style="margin-top:3%; margin-bottom:3%"><img src="<?=env('UPLOADS_URL'). '/news/' . $row->photo?>" alt="<?= $row->name ?>"
+                            class="w-100"></div>
+                    <div class="col-8">
                         <p
                             style="font-size:12px; font-weight:600; margin-top:6%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width:80%;">
                             <?= $row->name ?></p>
@@ -19,5 +19,3 @@
         </a>
     </div>
 <?php } }?>
-<!-- <div class="text-primary"><strong>Developer's Note :</strong> When click on a particular div of magazine, the pdf
-    file will be downloaded on their device.</div> -->

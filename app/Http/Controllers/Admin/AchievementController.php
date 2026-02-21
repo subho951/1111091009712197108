@@ -44,6 +44,7 @@ class AchievementController extends Controller
                     'name'          => 'required|string|max:255|unique:users,name',
                     'news_date'     => 'required|date',
                     'photo'         => 'required|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
+                    'description'   => 'required|string|max:500',
                 ]);
 
                 /** Photo Upload */
@@ -54,6 +55,7 @@ class AchievementController extends Controller
                     'name'              => $request->name,
                     'news_date'         => $request->news_date,
                     'photo'             => $photoName,
+                    'description'       => $request->description,
                 ]);
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' added successfully !!!');
@@ -81,6 +83,7 @@ class AchievementController extends Controller
                     'name'          => 'required|string|max:255|unique:users,name',
                     'news_date'     => 'required|date',
                     'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:' . $generalSetting->photo_size,
+                    'description'   => 'required|string|max:500',
                 ]);
 
                 /** Photo Update */
@@ -98,6 +101,7 @@ class AchievementController extends Controller
                 $member->update([
                     'name'              => $request->name,
                     'news_date'         => $request->news_date,
+                    'description'       => $request->description,
                 ]);
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');

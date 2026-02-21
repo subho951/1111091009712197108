@@ -16,14 +16,30 @@ use App\Services\Schema\ProductSchemaService;
 */
 Route::match(['get', 'post'], '/', 'App\Http\Controllers\FrontController@signin');
 Route::match(['get', 'post'], '/logout', 'App\Http\Controllers\FrontController@signout');
+
 Route::match(['get', 'post'], '/home', 'App\Http\Controllers\FrontController@home');
+
 Route::match(['get', 'post'], '/events', 'App\Http\Controllers\FrontController@events');
+Route::match(['get', 'post'], '/event-details/{id}', 'App\Http\Controllers\FrontController@eventDetail');
+
 Route::match(['get', 'post'], '/news', 'App\Http\Controllers\FrontController@news');
+Route::match(['get', 'post'], '/news-details/{id}', 'App\Http\Controllers\FrontController@newsDetail');
+
 Route::match(['get', 'post'], '/awards', 'App\Http\Controllers\FrontController@awards');
+Route::match(['get', 'post'], '/awards-details/{id}', 'App\Http\Controllers\FrontController@awardsDetail');
+
 Route::match(['get', 'post'], '/magazines', 'App\Http\Controllers\FrontController@magazines');
+
 Route::match(['get', 'post'], '/media', 'App\Http\Controllers\FrontController@media');
+Route::match(['get', 'post'], '/media-details/{id}', 'App\Http\Controllers\FrontController@mediaDetail');
+
 Route::match(['get', 'post'], '/page/{id}', 'App\Http\Controllers\FrontController@page');
+
 Route::match(['get', 'post'], '/reach', 'App\Http\Controllers\FrontController@reach');
+
+Route::match(['get', 'post'], '/society-members', 'App\Http\Controllers\FrontController@societyMembers');
+Route::match(['get', 'post'], '/employee-members', 'App\Http\Controllers\FrontController@employeeMembers');
+Route::match(['get', 'post'], '/teacher-members', 'App\Http\Controllers\FrontController@teacherMembers');
 
 /* Admin Panel */
     Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->group(function(){
