@@ -62,9 +62,9 @@ $user_type = session('type');
               <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab9">Email Templates</button>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab7">SEO</button>
-              </li>
+              </li> -->
             <?php }?>
           </ul>
           <div class="tab-content pt-2">
@@ -338,39 +338,36 @@ $user_type = session('type');
               <!-- seo settings Form -->
               <form method="POST" action="{{ url('admin/email-template') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="email_template_user_signup" class="col-md-4 col-lg-3 col-form-label">User Signup</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_user_signup" class="form-control ckeditor" id="ckeditor1" rows="5"><?=$setting->email_template_user_signup?></textarea>
                   </div>
-                </div>
+                </div> -->
                 <div class="row mb-3">
                   <label for="email_template_forgot_password" class="col-md-4 col-lg-3 col-form-label">Forgot Password</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_forgot_password" class="form-control ckeditor" id="ckeditor2" rows="5"><?=$setting->email_template_forgot_password?></textarea>
                   </div>
-                  <!-- <div id="editor">
-                    <p>Hello from CKEditor 5!</p>
-                  </div> -->
                 </div>
-                <div class="row mb-3">
+                <!-- <div class="row mb-3">
                   <label for="email_template_change_password" class="col-md-4 col-lg-3 col-form-label">Change Password</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_change_password" class="form-control ckeditor" id="ckeditor3" rows="5"><?=$setting->email_template_change_password?></textarea>
                   </div>
-                </div>
-                <div class="row mb-3">
+                </div> -->
+                <!-- <div class="row mb-3">
                   <label for="email_template_failed_login" class="col-md-4 col-lg-3 col-form-label">Failed Login</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_failed_login" class="form-control ckeditor" id="ckeditor4" rows="5"><?=$setting->email_template_failed_login?></textarea>
                   </div>
-                </div>
-                <div class="row mb-3">
+                </div> -->
+                <!-- <div class="row mb-3">
                   <label for="email_template_contactus" class="col-md-4 col-lg-3 col-form-label">Contact Us</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_contactus" class="form-control ckeditor" id="ckeditor5" rows="5"><?=$setting->email_template_contactus?></textarea>
                   </div>
-                </div>
+                </div> -->
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

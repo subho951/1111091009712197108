@@ -420,18 +420,18 @@ class UserController extends Controller
         public function email_template(Request $request){
             $postData = $request->all();
             $rules = [
-                'email_template_user_signup'            => 'required',
+                // 'email_template_user_signup'            => 'required',
                 'email_template_forgot_password'        => 'required',
-                'email_template_change_password'        => 'required',
-                'email_template_failed_login'           => 'required',
+                // 'email_template_change_password'        => 'required',
+                // 'email_template_failed_login'           => 'required',
             ];
             if($this->validate($request, $rules)){
                 $fields = [
-                    'email_template_user_signup'            => $postData['email_template_user_signup'],
+                    // 'email_template_user_signup'            => $postData['email_template_user_signup'],
                     'email_template_forgot_password'        => $postData['email_template_forgot_password'],
-                    'email_template_change_password'        => $postData['email_template_change_password'],
-                    'email_template_failed_login'           => $postData['email_template_failed_login'],
-                    'email_template_contactus'              => $postData['email_template_contactus'],
+                    // 'email_template_change_password'        => $postData['email_template_change_password'],
+                    // 'email_template_failed_login'           => $postData['email_template_failed_login'],
+                    // 'email_template_contactus'              => $postData['email_template_contactus'],
                 ];
                 GeneralSetting::where('id', '=', 1)->update($fields);
                 return redirect()->back()->with('success_message', 'Email Templates Updated Successfully !!!');

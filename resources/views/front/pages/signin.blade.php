@@ -44,16 +44,17 @@
                 <!--<button type="button" class="btn-close" data-bs-dismiss="modal"></button>-->
             </div>
             <div class="modal-body text-center">
-                <form>
+                <form method="POST" action="<?= url('forgot-password') ?>">
+                    @csrf
                     <!-- Email -->
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="Type your registered email address">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Type your registered email address">
                         <label for="email">Registered Email Address</label>
                     </div>
                     <!-- Remember me -->
-                    <div class=" mb-3">
+                    <!-- <div class=" mb-3">
                         After submitting, please check your registered email address for instruction.
-                    </div>
+                    </div> -->
                     <!-- Button -->
                     <button class="btn btn-danger bg-gradient w-100">Submit</button>
                 </form>

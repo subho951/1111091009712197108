@@ -24,6 +24,7 @@ use App\Models\Event;
 use App\Models\Magazine;
 use App\Models\News;
 use App\Models\Institute;
+use App\Models\EmailLog;
 
 use Auth;
 use Session;
@@ -106,7 +107,7 @@ class FrontController extends Controller
             }
             
             $data = [];
-            $title                          = 'Sign In / Sign Up';
+            $title                          = 'Sign In';
             $page_name                      = 'signin';
             echo $this->front_before_login_layout($title, $page_name, $data);
         }
@@ -145,19 +146,19 @@ class FrontController extends Controller
                     $email      = $postData['email'];
                     $checkUser  = User::where('email', '=', $email)->first();
                     if ($checkUser) {
-                        $remember_token = rand(1000, 9999);
+                        $signin_otp = rand(1000, 9999);
                         $postData = [
-                            'remember_token'        => $remember_token,
+                            'signin_otp'        => $signin_otp,
                         ];
                         User::where('id', '=', $checkUser->id)->update($postData);
                         /* email sent */
                         $generalSetting              = GeneralSetting::find('1');
-                        $message                     = str_replace("{{otp1}}", substr($remember_token, 0, 1), $generalSetting->email_template_forgot_password);
-                        $message1                    = str_replace("{{otp2}}", substr($remember_token, 1, 1), $message);
-                        $message2                    = str_replace("{{otp3}}", substr($remember_token, 2, 1), $message1);
-                        $message3                    = str_replace("{{otp4}}", substr($remember_token, 3, 1), $message2);
+                        $message                     = str_replace("{{otp1}}", substr($signin_otp, 0, 1), $generalSetting->email_template_forgot_password);
+                        $message1                    = str_replace("{{otp2}}", substr($signin_otp, 1, 1), $message);
+                        $message2                    = str_replace("{{otp3}}", substr($signin_otp, 2, 1), $message1);
+                        $message3                    = str_replace("{{otp4}}", substr($signin_otp, 3, 1), $message2);
                         $subject                     = $generalSetting->site_name . ' :: Forgot Password OTP';
-                        $this->sendMail($checkUser->email, $subject, $message3);
+                        // $this->sendMail($checkUser->email, $subject, $message3);
                         /* email sent */
                         /* email log save */
                         $postData2 = [
@@ -200,10 +201,10 @@ class FrontController extends Controller
                     $otp    = ($otp1);
                     $checkUser = User::where('id', '=', $id)->first();
                     if ($checkUser) {
-                        $remember_token = $checkUser->remember_token;
-                        if ($remember_token == $otp) {
+                        $signin_otp = $checkUser->signin_otp;
+                        if ($signin_otp == $otp) {
                             $postData = [
-                                'remember_token'        => '',
+                                'signin_otp'        => '',
                             ];
                             User::where('id', '=', $checkUser->id)->update($postData);
                             return redirect('reset-password/' . Helper::encoded($checkUser->id))->with('success_message', 'OTP Validated. Now Reset Your Password !!!');
@@ -247,7 +248,7 @@ class FrontController extends Controller
                             $message                     = str_replace("{{name}}", $checkUser->first_name . ' ' . $checkUser->last_name, $generalSetting->email_template_change_password);
                             $message1                    = str_replace("{{email}}", $checkUser->email, $message);
                             $subject                     = $generalSetting->site_name . ' :: Reset Password';
-                            $this->sendMail($checkUser->email, $subject, $message1);
+                            // $this->sendMail($checkUser->email, $subject, $message1);
                             /* email sent */
                             /* email log save */
                             $postData2 = [
@@ -258,7 +259,7 @@ class FrontController extends Controller
                             ];
                             EmailLog::insertGetId($postData2);
                             /* email log save */
-                            return redirect('signin/')->with('success_message', 'Password Reset Successfully. Please Sign In !!!');
+                            return redirect('/')->with('success_message', 'Password Reset Successfully. Please Sign In !!!');
                         } else {
                             return redirect()->back()->with('error_message', 'Password & Confirm Password Does Not Matched !!!');
                         }
