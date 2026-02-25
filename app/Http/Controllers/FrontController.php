@@ -134,6 +134,7 @@ class FrontController extends Controller
             return redirect('/')->with('success_message', 'You Are Successfully Logged Out !!!');
         }
     /* authentication */
+
     /* forgot password */
         public function forgotPassword(Request $request)
         {
@@ -277,6 +278,7 @@ class FrontController extends Controller
             echo $this->front_before_login_layout($title, $page_name, $data);
         }
     /* forgot password */
+    
     /* after login */
         /* home */
             public function home(Request $request)
