@@ -163,7 +163,7 @@ class FrontController extends Controller
                         /* email sent */
                         /* email log save */
                         $postData2 = [
-                            'name'                  => $checkUser->first_name . ' ' . $checkUser->last_name,
+                            'name'                  => $checkUser->name,
                             'email'                 => $checkUser->email,
                             'subject'               => $subject,
                             'message'               => $message3
@@ -247,14 +247,14 @@ class FrontController extends Controller
                             User::where('id', '=', $checkUser->id)->update($postData);
                             /* email sent */
                             $generalSetting              = GeneralSetting::find('1');
-                            $message                     = str_replace("{{name}}", $checkUser->first_name . ' ' . $checkUser->last_name, $generalSetting->email_template_change_password);
+                            $message                     = str_replace("{{name}}", $checkUser->name, $generalSetting->email_template_change_password);
                             $message1                    = str_replace("{{email}}", $checkUser->email, $message);
                             $subject                     = $generalSetting->site_name . ' :: Reset Password';
                             $this->sendMail($checkUser->email, $subject, $message1);
                             /* email sent */
                             /* email log save */
                             $postData2 = [
-                                'name'                  => $checkUser->first_name . ' ' . $checkUser->last_name,
+                                'name'                  => $checkUser->name,
                                 'email'                 => $checkUser->email,
                                 'subject'               => $subject,
                                 'message'               => $message1
