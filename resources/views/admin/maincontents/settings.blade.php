@@ -350,12 +350,12 @@ $user_type = session('type');
                     <textarea type="text" name="email_template_forgot_password" class="form-control ckeditor" id="ckeditor2" rows="5"><?=$setting->email_template_forgot_password?></textarea>
                   </div>
                 </div>
-                <!-- <div class="row mb-3">
+                <div class="row mb-3">
                   <label for="email_template_change_password" class="col-md-4 col-lg-3 col-form-label">Change Password</label>
                   <div class="col-md-8 col-lg-9">
                     <textarea type="text" name="email_template_change_password" class="form-control ckeditor" id="ckeditor3" rows="5"><?=$setting->email_template_change_password?></textarea>
                   </div>
-                </div> -->
+                </div>
                 <!-- <div class="row mb-3">
                   <label for="email_template_failed_login" class="col-md-4 col-lg-3 col-form-label">Failed Login</label>
                   <div class="col-md-8 col-lg-9">

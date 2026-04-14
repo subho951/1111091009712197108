@@ -429,7 +429,7 @@ class UserController extends Controller
                 $fields = [
                     // 'email_template_user_signup'            => $postData['email_template_user_signup'],
                     'email_template_forgot_password'        => $postData['email_template_forgot_password'],
-                    // 'email_template_change_password'        => $postData['email_template_change_password'],
+                    'email_template_change_password'        => $postData['email_template_change_password'],
                     // 'email_template_failed_login'           => $postData['email_template_failed_login'],
                     // 'email_template_contactus'              => $postData['email_template_contactus'],
                 ];
