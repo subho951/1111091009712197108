@@ -1,5 +1,5 @@
 <?php
-use Illuminate\Support\Facades\Route;;
+use Illuminate\Support\Facades\Route;
 $routeName    = Route::current();
 $pageName     = explode("/", $routeName->uri());
 $pageSegment  = $pageName[0];
@@ -13,18 +13,8 @@ $pageFunction = ((count($pageName)>2)?$pageName[1]:'');
 <html lang="en">
 <head>
   <?=$head?>
-  <style type="text/css">
-    a.nav-link.active {
-      color: #4154f1;
-      background: #f6f9ff;
-    }
-    .sidebar-nav .nav-link {
-      background: none;
-      color: #012970;
-    }
-  </style>
 </head>
-<body>
+<body class="admin-shell">
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
     <?=$header?>
@@ -33,11 +23,11 @@ $pageFunction = ((count($pageName)>2)?$pageName[1]:'');
   <aside id="sidebar" class="sidebar">
     <?=$sidebar?>
   </aside><!-- End Sidebar-->
-  <main id="main" class="main">
+  <main id="main" class="main admin-main">
     <?=$maincontent?>
   </main><!-- End #main -->
   <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
+  <footer id="footer" class="footer admin-footer">
     <?=$footer?>
   </footer><!-- End Footer -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -57,6 +47,18 @@ $pageFunction = ((count($pageName)>2)?$pageName[1]:'');
     $(function(){
       $('.autohide').delay(5000).fadeOut('slow');
     })
+  </script>
+  <script>
+    // close sidebar on mobile when clicking overlay
+    document.addEventListener('click', function(e) {
+      var body = document.body;
+      var sidebar = document.getElementById('sidebar');
+      if (window.innerWidth < 1200 && body.classList.contains('toggle-sidebar')) {
+        if (sidebar && !sidebar.contains(e.target) && !e.target.classList.contains('toggle-sidebar-btn') && !e.target.closest('.toggle-sidebar-btn')) {
+          body.classList.remove('toggle-sidebar');
+        }
+      }
+    });
   </script>
 
 <?php if(($pageSegment == 'notification' && ($pageFunction == 'add' || $pageFunction == 'edit')) || ($pageSegment == 'newsletter' && ($pageFunction == 'add' || $pageFunction == 'edit'))) {?>

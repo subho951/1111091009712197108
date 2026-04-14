@@ -3,9 +3,9 @@
 <head>
     <?=$head?>
 </head>
-<body>
+<body class="admin-auth-shell">
   <!-- <main style="background: url(<?=env('ADMIN_ASSETS_URL').'/assets/img/cover-image.jpg'?>) no-repeat;background-size: 100%;"> -->
-  <main>
+  <main class="auth-main">
     <?=$maincontent?>
   </main><!-- End #main -->
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

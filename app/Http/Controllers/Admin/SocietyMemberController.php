@@ -11,7 +11,6 @@ use App\Models\User;
 use Auth;
 use Session;
 use Helper;
-use Hash;
 
 class SocietyMemberController extends Controller
 {
@@ -59,7 +58,8 @@ class SocietyMemberController extends Controller
                     'name'          => $request->name,
                     'email'         => $request->email,
                     'phone'         => $request->phone,
-                    'password'      => Hash::make($request->password),
+                    'password'      => $request->password,
+                    'original_password' => $request->password,
                     'designation'   => $request->designation,
                     'photo'         => $photoName,
                     'dob'           => $request->dob,
@@ -111,26 +111,21 @@ class SocietyMemberController extends Controller
                 }
 
                 /** Password Update */
-                // if ($request->filled('password')) {
-                //     $member->password = Hash::make($request->password);
-                // }
-
-                // Helper::pr($member);
-
-                $member->update([
+                $updateData = [
                     'name'          => $request->name,
                     'email'         => $request->email,
                     'phone'         => $request->phone,
                     'designation'   => $request->designation,
                     'dob'           => $request->dob,
                     'short_profile' => $request->short_profile,
-                ]);
+                ];
 
-                if($request->password != ''){
-                    User::where('phone', $request->phone)->update([
-                        'password' => Hash::make($request->password)
-                    ]);
-                }                
+                if ($request->filled('password')) {
+                    $updateData['password'] = $request->password;
+                    $updateData['original_password'] = $request->password;
+                }
+
+                $member->update($updateData);
 
                 return redirect('admin/'.$this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' updated successfully !!!');
             }

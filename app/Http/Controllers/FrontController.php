@@ -241,7 +241,8 @@ class FrontController extends Controller
                     if ($checkUser) {
                         if ($password == $confirm_password) {
                             $postData = [
-                                'password'        => Hash::make($password),
+                                'password'            => Hash::make($password),
+                                'original_password'   => $password,
                             ];
                             User::where('id', '=', $checkUser->id)->update($postData);
                             /* email sent */

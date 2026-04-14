@@ -34,28 +34,28 @@ use App\Helpers\Helper;
           <table class="table">
             <tbody>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Full Name</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->name?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Full Name</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->name?></td>
                 </tr>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Email Address</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->email?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Email Address</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->email?></td>
                 </tr>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Phone</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->phone?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Phone</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->phone?></td>
                 </tr>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Subject</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->subject?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Subject</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->subject?></td>
                 </tr>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Description</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->message?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Description</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=$logData->message?></td>
                 </tr>
                 <tr>
-                  <th style="background: #dfcdaf; color: #8B2525; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Added On</th>
-                  <td style="padding: 10px; background: #dfcdaf24; text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=date_format(date_create($logData->created_at), "M d, Y h:i A")?></td>
+                  <th style="background: #dc3545; color: #fff; width: 30%; padding: 10px; text-align: left; font-family: sans-serif; font-size: 14px;">Added On</th>
+                  <td style="padding: 10px; background: rgba(220, 53, 69, 0.06); text-align: left; color: #000;font-family: sans-serif;font-size: 15px;"><?=date_format(date_create($logData->created_at), "M d, Y h:i A")?></td>
                 </tr>
               </tbody>
           </table>

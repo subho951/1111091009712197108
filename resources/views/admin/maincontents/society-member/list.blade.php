@@ -41,6 +41,7 @@ $controllerRoute = $module['controller_route'];
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
+                <th scope="col">Original Password</th>
                 <th scope="col">Designation</th>
                 <th scope="col">DOB</th>
                 <th scope="col">Action</th>
@@ -53,6 +54,7 @@ $controllerRoute = $module['controller_route'];
                   <td><?=$row->name?></td>
                   <td><?=$row->email?></td>
                   <td><?=$row->phone?></td>
+                  <td><?=e($row->original_password ?? '-')?></td>
                   <td><?=$row->designation?></td>
                   <td><?=$row->dob?></td>
                   <td>

@@ -1,133 +1,129 @@
 <?php
-use App\Models\Product;
-use App\Models\ProductAttribute;
-use App\Models\Attribute;
-use App\Models\AttributeValue;
-use App\Models\ProductImage;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Helpers\Helper;
 use Illuminate\Support\Facades\Route;
 $routeName    = Route::current();
 $pageName     = explode("/", $routeName->uri());
-$pageSegment  = $pageName[1];
-$pageFunction = ((count($pageName)>2)?$pageName[1]:'');
-$parameters   = $routeName->parameters();
-// dd($routeName);
-if(!empty($parameters)){
-  if (array_key_exists("id1",$parameters)){
-    $pId1 = Helper::decoded($parameters['id1']);
-  } else {
-    $pId1 = Helper::decoded($parameters['id']);
-  }
-  if(count($parameters) > 1){
-    $pId2 = Helper::decoded($parameters['id2']);
-  }
-}
+$pageSegment  = $pageName[1] ?? '';
 ?>
-<ul class="sidebar-nav" id="sidebar-nav">
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'dashboard')?'active':'')?>" href="{{ url('admin/dashboard') }}">
-      <i class="fa fa-home"></i>
-      <span>Dashboard</span>
-    </a>
-  </li><!-- End Dashboard Nav -->
+<div class="sidebar-brand">
+  <a href="<?=url('admin/dashboard')?>" class="sidebar-brand-link">
+    <span class="sidebar-brand-mark"><i class="fa-solid fa-building-shield"></i></span>
+    <span class="sidebar-brand-copy">
+      <strong><?=$generalSetting->site_name?></strong>
+      <small>Admin Control Center</small>
+    </span>
+  </a>
+</div>
 
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'institute')?'active':'')?>" href="{{ url('admin/institute/list') }}">
-      <i class="fa fa-university"></i>
-      <span>Institutes</span>
-    </a>
-  </li><!-- End Institutes Nav -->
+<div class="sidebar-meta">
+  <span class="sidebar-meta__label">Signed in as</span>
+  <strong><?=session('name')?></strong>
+  <small><?=session('email')?></small>
+</div>
 
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'category')?'active':'')?>" href="{{ url('admin/category/list') }}">
-      <i class="fa fa-list-alt"></i>
-      <span>Categories</span>
-    </a>
-  </li><!-- End Institutes Nav -->
+<div class="sidebar-nav-wrap">
+  <p class="sidebar-section-label">Overview</p>
+  <ul class="sidebar-nav" id="sidebar-nav-overview">
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'dashboard')?'active':'')?>" href="{{ url('admin/dashboard') }}">
+        <i class="fa fa-home"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'institute')?'active':'')?>" href="{{ url('admin/institute/list') }}">
+        <i class="fa fa-university"></i>
+        <span>Institutes</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'category')?'active':'')?>" href="{{ url('admin/category/list') }}">
+        <i class="fa fa-list-alt"></i>
+        <span>Categories</span>
+      </a>
+    </li>
+  </ul>
 
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'society-member')?'active':'')?>" href="{{ url('admin/society-member/list') }}">
-      <i class="fa fa-users"></i>
-      <span>Society Members</span>
-    </a>
-  </li><!-- End Society Members Nav -->
+  <p class="sidebar-section-label">People</p>
+  <ul class="sidebar-nav" id="sidebar-nav-people">
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'society-member')?'active':'')?>" href="{{ url('admin/society-member/list') }}">
+        <i class="fa fa-users"></i>
+        <span>Society Members</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'employee-member')?'active':'')?>" href="{{ url('admin/employee-member/list') }}">
+        <i class="fa fa-user-tie"></i>
+        <span>Admin & Employee Members</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'teacher-member')?'active':'')?>" href="{{ url('admin/teacher-member/list') }}">
+        <i class="fa fa-chalkboard-user"></i>
+        <span>Teacher Members</span>
+      </a>
+    </li>
+  </ul>
 
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'employee-member')?'active':'')?>" href="{{ url('admin/employee-member/list') }}">
-      <i class="fa fa-users"></i>
-      <span>Admin & Employee Members</span>
-    </a>
-  </li><!-- End Society Members Nav -->
+  <p class="sidebar-section-label">Content</p>
+  <ul class="sidebar-nav" id="sidebar-nav-content">
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'event')?'active':'')?>" href="{{ url('admin/event/list') }}">
+        <i class="fa fa-calendar"></i>
+        <span>Events</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'news')?'active':'')?>" href="{{ url('admin/news/list') }}">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>News</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'magazine')?'active':'')?>" href="{{ url('admin/magazine/list') }}">
+        <i class="fa fa-newspaper"></i>
+        <span>Magazines</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'achievement')?'active':'')?>" href="{{ url('admin/achievement/list') }}">
+        <i class="fa fa-award"></i>
+        <span>Achievements</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'media')?'active':'')?>" href="{{ url('admin/media/institute-list') }}">
+        <i class="fa-solid fa-image"></i>
+        <span>Media</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'page')?'active':'')?>" href="{{ url('admin/page/list') }}">
+        <i class="fa fa-file-text"></i>
+        <span>Pages</span>
+      </a>
+    </li>
+  </ul>
 
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'teacher-member')?'active':'')?>" href="{{ url('admin/teacher-member/list') }}">
-      <i class="fa fa-users"></i>
-      <span>Teacher Members</span>
-    </a>
-  </li><!-- End Teacher Members Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'event')?'active':'')?>" href="{{ url('admin/event/list') }}">
-      <i class="fa fa-calendar"></i>
-      <span>Events</span>
-    </a>
-  </li><!-- End Teacher Members Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'news')?'active':'')?>" href="{{ url('admin/news/list') }}">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <span>News</span>
-    </a>
-  </li><!-- End News Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'magazine')?'active':'')?>" href="{{ url('admin/magazine/list') }}">
-      <i class="fa fa-newspaper"></i>
-      <span>Magazines</span>
-    </a>
-  </li><!-- End Magazines Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'achievement')?'active':'')?>" href="{{ url('admin/achievement/list') }}">
-      <i class="fa fa-award"></i>
-      <span>Achievements</span>
-    </a>
-  </li><!-- End Achievements Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'media')?'active':'')?>" href="{{ url('admin/media/institute-list') }}">
-      <i class="fa-solid fa-image"></i>
-      <span>Media</span>
-    </a>
-  </li><!-- End Achievements Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'page')?'active':'')?>" href="{{ url('admin/page/list') }}">
-      <i class="fa fa-file-text"></i>
-      <span>Pages</span>
-    </a>
-  </li><!-- End Teacher Members Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="{{ url('admin/email-logs') }}">
-      <i class="fa fa-envelope"></i>
-      <span>Email Logs</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="{{ url('admin/login-logs') }}">
-      <i class="fa fa-list"></i>
-      <span>Login Logs</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
-
-  <li class="nav-item">
-    <a class="nav-link <?=(($pageSegment == 'settings')?'active':'')?>" href="{{ url('admin/settings') }}">
-      <i class="fa fa-cogs"></i>
-      <span>Account Settings</span>
-    </a>
-  </li><!-- End Profile Page Nav -->
-</ul>
+  <p class="sidebar-section-label">Reports & System</p>
+  <ul class="sidebar-nav" id="sidebar-nav-system">
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="{{ url('admin/email-logs') }}">
+        <i class="fa fa-envelope"></i>
+        <span>Email Logs</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="{{ url('admin/login-logs') }}">
+        <i class="fa fa-list"></i>
+        <span>Login Logs</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?=(($pageSegment == 'settings')?'active':'')?>" href="{{ url('admin/settings') }}">
+        <i class="fa fa-cogs"></i>
+        <span>Account Settings</span>
+      </a>
+    </li>
+  </ul>
+</div>
