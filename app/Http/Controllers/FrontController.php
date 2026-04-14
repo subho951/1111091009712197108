@@ -159,7 +159,7 @@ class FrontController extends Controller
                         $message2                    = str_replace("{{otp3}}", substr($signin_otp, 2, 1), $message1);
                         $message3                    = str_replace("{{otp4}}", substr($signin_otp, 3, 1), $message2);
                         $subject                     = $generalSetting->site_name . ' :: Forgot Password OTP';
-                        // $this->sendMail($checkUser->email, $subject, $message3);
+                        $this->sendMail($checkUser->email, $subject, $message3);
                         /* email sent */
                         /* email log save */
                         $postData2 = [
@@ -250,7 +250,7 @@ class FrontController extends Controller
                             $message                     = str_replace("{{name}}", $checkUser->first_name . ' ' . $checkUser->last_name, $generalSetting->email_template_change_password);
                             $message1                    = str_replace("{{email}}", $checkUser->email, $message);
                             $subject                     = $generalSetting->site_name . ' :: Reset Password';
-                            // $this->sendMail($checkUser->email, $subject, $message1);
+                            $this->sendMail($checkUser->email, $subject, $message1);
                             /* email sent */
                             /* email log save */
                             $postData2 = [
