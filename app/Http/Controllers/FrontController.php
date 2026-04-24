@@ -25,6 +25,7 @@ use App\Models\Magazine;
 use App\Models\News;
 use App\Models\Institute;
 use App\Models\EmailLog;
+use App\Models\DeleteAccountRequest;
 
 use Auth;
 use Session;
