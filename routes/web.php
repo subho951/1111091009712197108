@@ -19,6 +19,8 @@ Route::match(['get', 'post'], '/forgot-password', 'App\Http\Controllers\FrontCon
 Route::match(['get', 'post'], '/validate-otp/{id}', 'App\Http\Controllers\FrontController@validateOTP');
 Route::match(['get', 'post'], '/reset-password/{id}', 'App\Http\Controllers\FrontController@resetPassword');
 Route::match(['get', 'post'], '/logout', 'App\Http\Controllers\FrontController@signout');
+
+Route::get('delete-account', [FrontController::class, 'deleteaccountview']);
 Route::post('delete-account-update', [FrontController::class, 'deleteaccount'])->name('delete-account.store');
 
 Route::match(['get', 'post'], '/home', 'App\Http\Controllers\FrontController@home');
