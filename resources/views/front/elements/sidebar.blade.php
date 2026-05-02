@@ -11,5 +11,6 @@ $pageSegment  = $pageName[0];
 <a href="<?= url('employee-members') ?>"><i class="fas fa-users me-2"></i> Employee Members</a>
 <a href="<?= url('teacher-members') ?>"><i class="fas fa-users me-2"></i> Teachers Members</a>
 <a href="<?= url('reach') ?>"><i class="fas fa-globe me-2"></i> Reach Us</a>
+<a href="<?= url('edit-profile') ?>" <?= (($pageSegment == 'edit-profile')?'class="active"':'') ?>><i class="fas fa-user-edit me-2"></i> Edit Profile</a>
 <a href="<?= url('change-password') ?>" <?= (($pageSegment == 'change-password')?'class="active"':'') ?>><i class="fas fa-key me-2"></i> Change Password</a>
 <a href="<?= url('logout') ?>"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>

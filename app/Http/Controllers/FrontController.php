@@ -324,6 +324,62 @@ class FrontController extends Controller
             echo $this->front_after_login_layout($title, $page_name, $data);
         }
     /* change password */
+
+    /* edit profile */
+        public function editProfile(Request $request)
+        {
+            $user = Auth::guard('web')->user();
+            if (!$user) {
+                return redirect('/')->with('error_message', 'Please sign in first !!!');
+            }
+
+            if ($request->isMethod('post')) {
+                $generalSetting = GeneralSetting::find('1');
+                $rules = [
+                    'name'          => 'required|string|max:255',
+                    'email'         => [
+                        'required',
+                        'email',
+                        'max:255',
+                        Rule::unique('users', 'email')->ignore($user->id),
+                    ],
+                    'dob'           => 'nullable|date|before_or_equal:today',
+                    'designation'   => 'nullable|string|max:255',
+                    'short_profile' => 'nullable|string|max:1000',
+                    'photo'         => 'nullable|image|mimes:jpg,jpeg,png|max:' . (($generalSetting && $generalSetting->photo_size) ? $generalSetting->photo_size : 2048),
+                ];
+
+                if ($this->validate($request, $rules)) {
+                    $updateData = [
+                        'name'          => $request->name,
+                        'email'         => $request->email,
+                        'dob'           => $request->dob,
+                        'designation'   => $request->designation,
+                        'short_profile' => $request->short_profile,
+                    ];
+
+                    if ($request->hasFile('photo')) {
+                        $photoName = time().'_'.$request->photo->getClientOriginalName();
+                        $request->photo->move(public_path('uploads/user'), $photoName);
+                        $updateData['photo'] = $photoName;
+                    }
+
+                    User::where('id', '=', $user->id)->update($updateData);
+                    $request->session()->put('name', $updateData['name']);
+                    $request->session()->put('email', $updateData['email']);
+
+                    return redirect('edit-profile')->with('success_message', 'Profile Updated Successfully !!!');
+                }
+
+                return redirect()->back()->with('error_message', 'All Fields Required !!!');
+            }
+
+            $data       = [];
+            $title      = 'Edit Profile';
+            $page_name  = 'edit-profile';
+            echo $this->front_after_login_layout($title, $page_name, $data);
+        }
+    /* edit profile */
     
     /* after login */
         /* home */
