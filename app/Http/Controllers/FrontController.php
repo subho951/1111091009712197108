@@ -280,6 +280,50 @@ class FrontController extends Controller
             echo $this->front_before_login_layout($title, $page_name, $data);
         }
     /* forgot password */
+
+    /* change password */
+        public function changePassword(Request $request)
+        {
+            $user = Auth::guard('web')->user();
+            if (!$user) {
+                return redirect('/')->with('error_message', 'Please sign in first !!!');
+            }
+
+            if ($request->isMethod('post')) {
+                $rules = [
+                    'current_password' => 'required',
+                    'new_password'     => 'required|min:6',
+                    'confirm_password' => 'required',
+                ];
+
+                if ($this->validate($request, $rules)) {
+                    $postData = $request->all();
+
+                    if (!Hash::check($postData['current_password'], $user->password)) {
+                        return redirect()->back()->with('error_message', 'Current Password Does Not Matched !!!');
+                    }
+
+                    if ($postData['new_password'] != $postData['confirm_password']) {
+                        return redirect()->back()->with('error_message', 'New Password & Confirm Password Does Not Matched !!!');
+                    }
+
+                    User::where('id', '=', $user->id)->update([
+                        'password'          => Hash::make($postData['new_password']),
+                        'original_password' => $postData['new_password'],
+                    ]);
+
+                    return redirect('change-password')->with('success_message', 'Password Changed Successfully !!!');
+                }
+
+                return redirect()->back()->with('error_message', 'All Fields Required !!!');
+            }
+
+            $data       = [];
+            $title      = 'Change Password';
+            $page_name  = 'change-password';
+            echo $this->front_after_login_layout($title, $page_name, $data);
+        }
+    /* change password */
     
     /* after login */
         /* home */
