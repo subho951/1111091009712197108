@@ -3,7 +3,6 @@
 <div class="card shadow mt-3 mb-3">
     <div class="container-fluid">
         <div class="row">
-            <?= count($members) ?>
             <?php if ($members) {
                 foreach ($members as $member) { ?>
                     <div class="col-6 member-card" 
