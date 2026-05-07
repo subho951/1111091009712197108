@@ -19,6 +19,7 @@ Route::match(['get', 'post'], '/forgot-password', 'App\Http\Controllers\FrontCon
 Route::match(['get', 'post'], '/validate-otp/{id}', 'App\Http\Controllers\FrontController@validateOTP');
 Route::match(['get', 'post'], '/reset-password/{id}', 'App\Http\Controllers\FrontController@resetPassword');
 Route::match(['get', 'post'], '/logout', 'App\Http\Controllers\FrontController@signout');
+Route::match(['get'], '/profile', 'App\Http\Controllers\FrontController@profile')->middleware('user');
 Route::match(['get', 'post'], '/change-password', 'App\Http\Controllers\FrontController@changePassword')->middleware('user');
 Route::match(['get', 'post'], '/edit-profile', 'App\Http\Controllers\FrontController@editProfile')->middleware('user');
 

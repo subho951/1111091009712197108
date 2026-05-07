@@ -380,6 +380,22 @@ class FrontController extends Controller
             echo $this->front_after_login_layout($title, $page_name, $data);
         }
     /* edit profile */
+
+    /* profile */
+        public function profile(Request $request)
+        {
+            $user = Auth::guard('web')->user();
+            if (!$user) {
+                return redirect('/')->with('error_message', 'Please sign in first !!!');
+            }
+
+            $data['profileUser']       = $user;
+            $data['profileInstitute']  = ($user->institute_id) ? Institute::select('name')->where('id', '=', $user->institute_id)->first() : null;
+            $title                     = 'Profile';
+            $page_name                 = 'profile';
+            echo $this->front_after_login_layout($title, $page_name, $data);
+        }
+    /* profile */
     
     /* after login */
         /* home */
